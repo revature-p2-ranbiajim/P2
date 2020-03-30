@@ -1,2 +1,2 @@
-# gazaway85-gmail.com
+# README
 Project 2
