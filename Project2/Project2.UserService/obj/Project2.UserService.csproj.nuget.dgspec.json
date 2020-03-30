@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/j/revature_project/p2/Project2/Project2.UserService/Project2.UserService.csproj": {}
+  },
+  "projects": {
+    "/home/j/revature_project/p2/Project2/Project2.UserService/Project2.UserService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/j/revature_project/p2/Project2/Project2.UserService/Project2.UserService.csproj",
+        "projectName": "Project2.UserService",
+        "projectPath": "/home/j/revature_project/p2/Project2/Project2.UserService/Project2.UserService.csproj",
+        "packagesPath": "/home/j/.nuget/packages/",
+        "outputPath": "/home/j/revature_project/p2/Project2/Project2.UserService/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/j/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
