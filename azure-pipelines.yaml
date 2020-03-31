@@ -56,7 +56,7 @@ stages:
               dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
             env:
               SONAR_LOGIN: $(sonar.login)
-      - job: analyze_grid_api
+      - job: analyze_user_api
         pool:
           vmImage: ubuntu-18.04
         steps:
@@ -78,26 +78,38 @@ stages:
               command: login
               containerRegistry: docker
           - script: |
-              docker image build --file p2_project/.docker/mvc.dockerfile --tag fredbelotte/mvcproj p2_project/Webflix/Webflix.MVC
-              docker image push fredbelotte/mvcproj
+              docker image build --file .docker/client.dockerfile --tag gazawayj/clientproj Project2/Project2.Client
+              docker image push gazawayj/clientproj
           - task: Docker@2
             inputs:
               command: logout
               containerRegistry: docker
-      - job: pack_api
+      - job: pack_grid_api
         steps:
           - task: Docker@2
             inputs:
               command: login
               containerRegistry: docker
           - script: |
-              docker image build --file p2_project/.docker/api.dockerfile --tag fredbelotte/apiproj p2_project/Webflix/Webflix.API
-              docker image push fredbelotte/apiproj
+              docker image build --file .docker/grid.dockerfile --tag gazawayj/gridproj Project2/Project2.GridService
+              docker image push gazawayj/gridproj
           - task: Docker@2
             inputs:
               command: logout
               containerRegistry: docker
-
+      - job: pack_user_api
+        steps:
+          - task: Docker@2
+            inputs:
+              command: login
+              containerRegistry: docker
+          - script: |
+              docker image build --file .docker/user.dockerfile --tag gazawayj/userproj Project2/Project2.UserService
+              docker image push gazawayj/userproj
+          - task: Docker@2
+            inputs:
+              command: logout
+              containerRegistry: docker
   # - stage: deploy
   #   jobs:
   #     - job: deploy_app
