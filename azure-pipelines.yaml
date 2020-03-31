@@ -38,7 +38,7 @@ stages:
             inputs:
               name: "dotnet-sonarscanner"
           - script: |
-              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet sonarscanner begin /k:"project2_client" /o:"revature-p2-ranbiajim" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
               dotnet build Project2/*.sln
               dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
             env:
@@ -47,11 +47,11 @@ stages:
         pool:
           vmImage: ubuntu-18.04
         steps:
-          - task: DotnetGlobalToolInstaller@0
+          - task: DotnetGlobalToolInstaller@1
             inputs:
               name: "dotnet-sonarscanner"
           - script: |
-              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet sonarscanner begin /k:"project2_grid" /o:"revature-p2-ranbiajim" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
               dotnet build Project2/*.sln
               dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
             env:
@@ -60,11 +60,11 @@ stages:
         pool:
           vmImage: ubuntu-18.04
         steps:
-          - task: DotnetGlobalToolInstaller@0
+          - task: DotnetGlobalToolInstaller@2
             inputs:
               name: "dotnet-sonarscanner"
           - script: |
-              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet sonarscanner begin /k:"project2_user" /o:"revature-p2-ranbiajim" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
               dotnet build Project2/*.sln
               dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
             env:
