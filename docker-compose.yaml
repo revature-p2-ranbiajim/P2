@@ -1,7 +1,7 @@
 networks:
     skynet:
   
-  services:
+services:
     mvc:
         build:
             context: Project2/Project2.Client
