@@ -1,0 +1,117 @@
+pr:
+  - master
+
+name: $(date:yyyyMMdd)$(rev:.rr)
+
+stages:
+  - stage: build
+    jobs:
+      - job: build_mvc
+        steps:
+          - script: dotnet build Project2/Project2.Client/*.csproj
+      - job: build_grid_api
+        steps:
+          - script: dotnet build Project2/Project2.GridService/*.csproj
+      - job: build_user_api
+        steps:
+          - script: dotnet build Project2/Project2.UserService/*.csproj
+
+  - stage: test
+    jobs:
+      - job: test_mvc
+        steps:
+          - script: dotnet xunit Project2/Project2.Client/*.csproj
+      - job: test_grid_api
+        steps:
+          - script: dotnet xunit Project2/Project2.GridService/*.csproj
+      - job: test_user_api
+        steps:
+          - script: dotnet xunit Project2/Project2.UserService/*.csproj
+
+  - stage: analyze
+    jobs:
+      - job: analyze_mvc
+        pool:
+          vmImage: ubuntu-18.04
+        steps:
+          - task: DotnetGlobalToolInstaller@0
+            inputs:
+              name: "dotnet-sonarscanner"
+          - script: |
+              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet build Project2/*.sln
+              dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
+            env:
+              SONAR_LOGIN: $(sonar.login)
+      - job: analyze_grid_api
+        pool:
+          vmImage: ubuntu-18.04
+        steps:
+          - task: DotnetGlobalToolInstaller@0
+            inputs:
+              name: "dotnet-sonarscanner"
+          - script: |
+              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet build Project2/*.sln
+              dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
+            env:
+              SONAR_LOGIN: $(sonar.login)
+      - job: analyze_grid_api
+        pool:
+          vmImage: ubuntu-18.04
+        steps:
+          - task: DotnetGlobalToolInstaller@0
+            inputs:
+              name: "dotnet-sonarscanner"
+          - script: |
+              dotnet sonarscanner begin /k:"" /o:"" /d:sonar.host.url="https://sonarcloud.io/" /d:sonar.login=$SONAR_LOGIN
+              dotnet build Project2/*.sln
+              dotnet sonarscanner end /d:sonar.login=$SONAR_LOGIN
+            env:
+              SONAR_LOGIN: $(sonar.login)
+  - stage: pack
+    jobs:
+      - job: pack_mvc
+        steps:
+          - task: Docker@2
+            inputs:
+              command: login
+              containerRegistry: docker
+          - script: |
+              docker image build --file p2_project/.docker/mvc.dockerfile --tag fredbelotte/mvcproj p2_project/Webflix/Webflix.MVC
+              docker image push fredbelotte/mvcproj
+          - task: Docker@2
+            inputs:
+              command: logout
+              containerRegistry: docker
+      - job: pack_api
+        steps:
+          - task: Docker@2
+            inputs:
+              command: login
+              containerRegistry: docker
+          - script: |
+              docker image build --file p2_project/.docker/api.dockerfile --tag fredbelotte/apiproj p2_project/Webflix/Webflix.API
+              docker image push fredbelotte/apiproj
+          - task: Docker@2
+            inputs:
+              command: logout
+              containerRegistry: docker
+
+  # - stage: deploy
+  #   jobs:
+  #     - job: deploy_app
+  #       steps:
+  #         - task: DockerCompose@0
+  #           displayName: Run services
+  #           inputs:
+  #             action: Run services
+  #             azureSubscriptionEndpoint: $(azure.subscription)
+  #             containerRegistryType: Container Registry
+  #             dockerComposeFile: docker-compose.yaml
+  #             projectName: $(Build.Repository.Name)
+  #             buildImages: false
+  #             detached: false
+
+trigger:
+  - master
