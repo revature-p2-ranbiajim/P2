@@ -8,30 +8,23 @@ services:
             dockerfile: ../../.docker/client.dockerfile
         image: rst929/clientproj
         ports:
-            - 5000:80 # will break
+            - 9000:80 # will break
         networks:
             - skynet
-    api:
+
+    service_1:
         build:
             context: Project2/Project2.GridService
-            dockerfile: ../../.docker/GridService.dockerfile
+            dockerfile: ../../.docker/grid.dockerfile
         image: rst929/gridserviceproj
         ports:
-            - 4000:80 # will break
+            - 8000:80 # will break
         networks:
             - skynet
+        environment:
+            ConnectionStrings__main: "server=sql;database=PizzaBoxDb;user id=sa;password=Password12345" # need new database?
 
-    api:
-        build:
-            context: Project2/Project2.UserService
-            dockerfile: ../../.docker/UserService.dockerfile
-        image: rst929/userserviceproj
-        ports:
-            - 4000:80 # will break
-        networks:
-            - skynet
-
-    sql:
+    sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
         environment:
             - ACCEPT_EULA=Y
@@ -40,9 +33,21 @@ services:
             - skynet
         ports:
             - 1433:1433 # maybe will break
+            
+    service_2:
+        build:
+            context: Project2/Project2.UserService
+            dockerfile: ../../.docker/user.dockerfile
+        image: rst929/userserviceproj
+        ports:
+            - 7000:80 # will break
+        networks:
+            - skynet
+        environment:
+            ConnectionStrings__main: "server=sql;database=PizzaBoxDb;user id=sa;password=Password12345"  #need new database?
 
     # second sql? Will probably also break
-    sql:
+    sql_2:
         image: mcr.microsoft.com/mssql/server:2017-latest
         environment:
             - ACCEPT_EULA=Y
