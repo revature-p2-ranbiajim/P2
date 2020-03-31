@@ -22,7 +22,7 @@ services:
         networks:
             - skynet
         environment:
-            ConnectionStrings__main: "server=sql;database=PizzaBoxDb;user id=sa;password=Password12345" # need new database?
+            ConnectionStrings__main: "server=sql;database=GridServiceDb;user id=sa;password=Password12345" # need new database?
 
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
@@ -44,7 +44,7 @@ services:
         networks:
             - skynet
         environment:
-            ConnectionStrings__main: "server=sql;database=PizzaBoxDb;user id=sa;password=Password12345"  #need new database?
+            ConnectionStrings__main: "server=sql;database=UserServiceDb;user id=sa;password=Password12345"  #need new database?
 
     # second sql? Will probably also break
     sql_2:
@@ -55,6 +55,6 @@ services:
         networks:
             - skynet
         ports:
-            - 1433:1433 # maybe will break
+            - 1434:1434 # maybe will break
         
 version: "3.7"
