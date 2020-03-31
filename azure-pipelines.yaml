@@ -47,7 +47,7 @@ stages:
         pool:
           vmImage: ubuntu-18.04
         steps:
-          - task: DotnetGlobalToolInstaller@0
+          - task: DotnetGlobalToolInstaller@1
             inputs:
               name: "dotnet-sonarscanner"
           - script: |
@@ -60,7 +60,7 @@ stages:
         pool:
           vmImage: ubuntu-18.04
         steps:
-          - task: DotnetGlobalToolInstaller@0
+          - task: DotnetGlobalToolInstaller@2
             inputs:
               name: "dotnet-sonarscanner"
           - script: |
@@ -127,4 +127,3 @@ stages:
 
 trigger:
   - master
-  
