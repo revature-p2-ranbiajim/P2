@@ -1,0 +1,55 @@
+networks:
+    skynet:
+  
+  services:
+    mvc:
+        build:
+            context: Project2/Project2.Client
+            dockerfile: ../../.docker/client.dockerfile
+        image: rst929/clientproj
+        ports:
+            - 5000:80 # will break
+        networks:
+            - skynet
+    api:
+        build:
+            context: Project2/Project2.GridService
+            dockerfile: ../../.docker/GridService.dockerfile
+        image: rst929/gridserviceproj
+        ports:
+            - 4000:80 # will break
+        networks:
+            - skynet
+
+    api:
+        build:
+            context: Project2/Project2.UserService
+            dockerfile: ../../.docker/UserService.dockerfile
+        image: rst929/userserviceproj
+        ports:
+            - 4000:80 # will break
+        networks:
+            - skynet
+
+    sql:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Password12345
+        networks:
+            - skynet
+        ports:
+            - 1433:1433 # maybe will break
+
+    # second sql? Will probably also break
+    sql:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Password12345
+        networks:
+            - skynet
+        ports:
+            - 1433:1433 # maybe will break
+        
+version: "3.7"
