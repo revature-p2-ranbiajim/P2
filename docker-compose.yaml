@@ -55,6 +55,6 @@ services:
         networks:
             - skynet
         ports:
-            - 1434:1434 # maybe will break
+            - 1434:1433 # maybe will break
         
 version: "3.7"
