@@ -8,7 +8,7 @@ services:
             dockerfile: ../../.docker/client.dockerfile
         image: rst929/clientproj
         ports:
-            - 9000:80 # will break
+            - 9000:80 
         networks:
             - skynet
 
@@ -18,11 +18,11 @@ services:
             dockerfile: ../../.docker/grid.dockerfile
         image: rst929/gridserviceproj
         ports:
-            - 8000:80 # will break
+            - 8000:80 
         networks:
             - skynet
         environment:
-            ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" # need new database?
+            ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" 
 
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
@@ -32,7 +32,7 @@ services:
         networks:
             - skynet
         ports:
-            - 1433:1433 # maybe will break
+            - 1433:1433 
             
     service_2:
         build:
@@ -40,13 +40,12 @@ services:
             dockerfile: ../../.docker/user.dockerfile
         image: rst929/userserviceproj
         ports:
-            - 7000:80 # will break
+            - 7000:80 
         networks:
             - skynet
         environment:
-            ConnectionStrings__main: "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"  #need new database?
+            ConnectionStrings__main: "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"  
 
-    # second sql? Will probably also break
     sql_2:
         image: mcr.microsoft.com/mssql/server:2017-latest
         environment:
@@ -55,7 +54,7 @@ services:
         networks:
             - skynet
         ports:
-            - 1434:1433 # maybe will break
+            - 1433:1433
             #TODO: port 1433:1433
 
 
