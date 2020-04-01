@@ -112,18 +112,18 @@ stages:
               containerRegistry: docker
   - stage: deploy
     jobs:
-      - job: deploy_app
+      - job: deploy_client
+        pool:
+          vmImage: ubuntu-18.04
         steps:
-          - task: DockerCompose@0
-            displayName: Run services
+          - task: AzureRmWebAppDeployment@4
             inputs:
-              action: Run services
-              azureSubscriptionEndpoint: $(azure.subscription)
-              containerRegistryType: Container Registry
-              dockerComposeFile: docker-compose.yaml
-              projectName: $(Build.Repository.Name)
-              buildImages: false
-              detached: false
+              ConnectionType: "AzureRM"
+              azureSubscription: $(azure.subscription)
+              appType: "webAppContainer"
+              WebAppName: "ranbiajim-project2-client"
+              DockerNamespace: "gazawayj"
+              DockerRepository: "clientproj"
 
 trigger:
   - master
