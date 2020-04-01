@@ -110,7 +110,7 @@ stages:
             inputs:
               command: logout
               containerRegistry: docker
-- stage: deploy
+  - stage: deploy
     jobs:
       - job: deploy_app
         steps:
