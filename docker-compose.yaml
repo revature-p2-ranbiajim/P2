@@ -6,7 +6,7 @@ services:
         build:
             context: Project2/Project2.Client
             dockerfile: ../../.docker/client.dockerfile
-        image: rst929/clientproj
+        image: gazawayj/clientproj
         ports:
             - 9000:80 
         networks:
@@ -16,7 +16,7 @@ services:
         build:
             context: Project2/Project2.GridService
             dockerfile: ../../.docker/grid.dockerfile
-        image: rst929/gridserviceproj
+        image: gazawayj/gridproj
         ports:
             - 8000:80 
         networks:
@@ -38,7 +38,7 @@ services:
         build:
             context: Project2/Project2.UserService
             dockerfile: ../../.docker/user.dockerfile
-        image: rst929/userserviceproj
+        image: gazawayj/userproj
         ports:
             - 7000:80 
         networks:
