@@ -18,15 +18,9 @@ stages:
 
   - stage: test
     jobs:
-      - job: test_mvc
+      - job: test_mvc_and_services
         steps:
           - script: dotnet test Project2/Project2.Testing/*.csproj --collect:"XPlat Code Coverage"
-      # - job: test_grid_api
-      #   steps:
-      #     - script: dotnet xunit Project2/Project2.GridService/*.csproj
-      # - job: test_user_api
-      #   steps:
-      #     - script: dotnet xunit Project2/Project2.UserService/*.csproj
 
   - stage: analyze
     jobs:
@@ -127,7 +121,7 @@ stages:
               DockerRepository: "clientproj"
               projectName: $(Build.Repository.Name)
               buildImages: false
-              detached: false
+              detached: true
 
 trigger:
   - master
