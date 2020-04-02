@@ -1,6 +1,6 @@
 networks:
     skynet:
-  
+
 services:
     mvc:
         build:
@@ -54,7 +54,7 @@ services:
         networks:
             - skynet
         ports:
-            - 1433:1433
+            - 1434:1433
             #TODO: port 1433:1433
 
 
