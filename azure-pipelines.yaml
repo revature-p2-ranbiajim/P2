@@ -20,13 +20,13 @@ stages:
     jobs:
       - job: test_mvc
         steps:
-          - script: dotnet xunit Project2/Project2.Client/*.csproj
-      - job: test_grid_api
-        steps:
-          - script: dotnet xunit Project2/Project2.GridService/*.csproj
-      - job: test_user_api
-        steps:
-          - script: dotnet xunit Project2/Project2.UserService/*.csproj
+          - script: dotnet xunit Project2/Project2.Testing/*.csproj
+      # - job: test_grid_api
+      #   steps:
+      #     - script: dotnet xunit Project2/Project2.GridService/*.csproj
+      # - job: test_user_api
+      #   steps:
+      #     - script: dotnet xunit Project2/Project2.UserService/*.csproj
 
   - stage: analyze
     jobs:
