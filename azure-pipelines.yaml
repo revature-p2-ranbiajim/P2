@@ -20,7 +20,7 @@ stages:
     jobs:
       - job: test_mvc
         steps:
-          - script: dotnet xunit Project2/Project2.Testing/*.csproj
+          - script: dotnet test Project2/Project2.Testing/*.csproj --collect:"XPlat Code Coverage"
       # - job: test_grid_api
       #   steps:
       #     - script: dotnet xunit Project2/Project2.GridService/*.csproj
