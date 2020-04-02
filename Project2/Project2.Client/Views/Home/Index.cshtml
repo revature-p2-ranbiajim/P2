@@ -1,6 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<body>
+    <canvas id="myCanvas" width="500" height="450" style="border:1px solid #000;">
+        Grid not supported.
+    </canvas>
+    <button onclick="undoLast()">Undo</button>
+<!--        ^bad, because hardcoding-->
+    <script src=grid.js></script>
+</body>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
