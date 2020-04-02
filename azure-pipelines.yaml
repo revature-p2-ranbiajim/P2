@@ -110,23 +110,24 @@ stages:
             inputs:
               command: logout
               containerRegistry: docker
-  # - stage: deploy
-  #   jobs:
-  #     - job: deploy_app
-  #       steps:
-  #         - task: DockerCompose@0
-  #           displayName: Run services
-  #           inputs:
-  #             action: Run services
-  #             azureSubscriptionEndpoint: $(azure.subscription)
-  #             WebAppName: ranbiajim-project2-client
-  #             containerRegistryType: Container Registry
-  #             dockerComposeFile: docker-compose.yaml
-  #             DockerNamespace: "gazawayj"
-  #             DockerRepository: "clientproj"
-  #             projectName: $(Build.Repository.Name)
-  #             buildImages: false
-  #             detached: false
+              
+  - stage: deploy
+    jobs:
+      - job: deploy_app
+        steps:
+          - task: DockerCompose@0
+            displayName: Run services
+            inputs:
+              action: Run services
+              azureSubscriptionEndpoint: $(azure.subscription)
+              WebAppName: ranbiajim-project2-client
+              containerRegistryType: Container Registry
+              dockerComposeFile: docker-compose.yaml
+              DockerNamespace: "gazawayj"
+              DockerRepository: "clientproj"
+              projectName: $(Build.Repository.Name)
+              buildImages: false
+              detached: false
 
 trigger:
   - master
