@@ -16,17 +16,17 @@ stages:
         steps:
           - script: dotnet build Project2/Project2.UserService/*.csproj
 
-  # - stage: test
-  #   jobs:
-  #     - job: test_mvc
-  #       steps:
-  #         - script: dotnet xunit Project2/Project2.Client/*.csproj
-  #     - job: test_grid_api
-  #       steps:
-  #         - script: dotnet xunit Project2/Project2.GridService/*.csproj
-  #     - job: test_user_api
-  #       steps:
-  #         - script: dotnet xunit Project2/Project2.UserService/*.csproj
+  - stage: test
+    jobs:
+      - job: test_mvc
+        steps:
+          - script: dotnet xunit Project2/Project2.Client/*.csproj
+      - job: test_grid_api
+        steps:
+          - script: dotnet xunit Project2/Project2.GridService/*.csproj
+      - job: test_user_api
+        steps:
+          - script: dotnet xunit Project2/Project2.UserService/*.csproj
 
   - stage: analyze
     jobs:
@@ -110,23 +110,23 @@ stages:
             inputs:
               command: logout
               containerRegistry: docker
-  - stage: deploy
-    jobs:
-      - job: deploy_app
-        steps:
-          - task: DockerCompose@0
-            displayName: Run services
-            inputs:
-              action: Run services
-              azureSubscriptionEndpoint: $(azure.subscription)
-              WebAppName: ranbiajim-project2-client
-              containerRegistryType: Container Registry
-              dockerComposeFile: docker-compose.yaml
-              DockerNamespace: "gazawayj"
-              DockerRepository: "clientproj"
-              projectName: $(Build.Repository.Name)
-              buildImages: false
-              detached: false
+  # - stage: deploy
+  #   jobs:
+  #     - job: deploy_app
+  #       steps:
+  #         - task: DockerCompose@0
+  #           displayName: Run services
+  #           inputs:
+  #             action: Run services
+  #             azureSubscriptionEndpoint: $(azure.subscription)
+  #             WebAppName: ranbiajim-project2-client
+  #             containerRegistryType: Container Registry
+  #             dockerComposeFile: docker-compose.yaml
+  #             DockerNamespace: "gazawayj"
+  #             DockerRepository: "clientproj"
+  #             projectName: $(Build.Repository.Name)
+  #             buildImages: false
+  #             detached: false
 
 trigger:
   - master
