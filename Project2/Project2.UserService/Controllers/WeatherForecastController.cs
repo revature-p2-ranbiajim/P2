@@ -27,7 +27,7 @@ namespace Project2.UserService.Controllers
           using (SqlConnection con = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"))
           {
             SqlCommand command = new SqlCommand("CREATE DATABASE MyDatabase", con);
-            con.Open();
+            command.Connection.Open();
             command.ExecuteNonQuery();
           };
         }
