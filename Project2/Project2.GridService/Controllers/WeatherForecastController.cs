@@ -47,7 +47,7 @@ namespace Project2.GridService.Controllers
             //     Summary = Summaries[rng.Next(Summaries.Length)]
             // })
             // .ToArray();
-                      using (SqlConnection con = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"))
+                      using (SqlConnection con = new SqlConnection("server=sql_1;database=master;user id=sa;password=Password12345"))
           {
             SqlCommand command = new SqlCommand("CREATE DATABASE MyDatabase", con);
             command.Connection.Open();
