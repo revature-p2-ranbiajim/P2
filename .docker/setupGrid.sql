@@ -1,3 +1,3 @@
-CREATE DATABASE GriderviceDb;
+CREATE DATABASE GridServiceDb;
 GO
-USE GriderviceDb;
+USE GridServiceDb;
