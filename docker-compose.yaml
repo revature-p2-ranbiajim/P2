@@ -62,7 +62,7 @@ services:
         networks:
             - slynet
         ports:
-            - 1434:1433
+            - 1400:1433
 
 
 version: "3.7"
