@@ -37,23 +37,25 @@ namespace Project2.UserService.Controllers
         }
 
          [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<WeatherForecast> Get()
         {
-            // var rng = new Random();
-            // return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            // {
-            //     Date = DateTime.Now.AddDays(index),
-            //     TemperatureC = rng.Next(-20, 55),
-            //     Summary = Summaries[rng.Next(Summaries.Length)]
-            // })
-            // .ToArray();
-                      using (SqlConnection con = new SqlConnection("server=sql_2;database=master;user id=sa;password=Password12345"))
-          {
-            SqlCommand command = new SqlCommand("CREATE DATABASE MyDatabase", con);
-            command.Connection.Open();
-            command.ExecuteNonQuery();
-          };
-          return Ok();
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+                      
+                      
+          //             using (SqlConnection con = new SqlConnection("server=sql_2;database=master;user id=sa;password=Password12345"))
+          // {
+          //   SqlCommand command = new SqlCommand("CREATE DATABASE MyDatabase", con);
+          //   command.Connection.Open();
+          //   command.ExecuteNonQuery();
+          // };
+          // return Ok();
         }
     }
 }
