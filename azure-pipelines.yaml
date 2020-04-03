@@ -120,7 +120,7 @@ stages:
               DockerNamespace: "gazawayj"
               DockerRepository: "clientproj"
               projectName: $(Build.Repository.Name)
-              buildImages: true
+              buildImages: false
               detached: true
 
       - job: deploy_grid
@@ -130,13 +130,13 @@ stages:
             inputs:
               action: Run services
               azureSubscriptionEndpoint: $(azure.subscription)
-              WebAppName: ranbiajim-project2-grid
+              WebAppName: ranbiajim-project2-client
               containerRegistryType: Container Registry
               dockerComposeFile: docker-compose.yaml
               DockerNamespace: "gazawayj"
               DockerRepository: "gridproj"
               projectName: $(Build.Repository.Name)
-              buildImages: true
+              buildImages: false
               detached: true
 
       - job: deploy_user
@@ -146,13 +146,13 @@ stages:
             inputs:
               action: Run services
               azureSubscriptionEndpoint: $(azure.subscription)
-              WebAppName: ranbiajim-project2-user
+              WebAppName: ranbiajim-project2-client
               containerRegistryType: Container Registry
               dockerComposeFile: docker-compose.yaml
               DockerNamespace: "gazawayj"
               DockerRepository: "userproj"
               projectName: $(Build.Repository.Name)
-              buildImages: true
+              buildImages: false
               detached: true
 
 trigger:
