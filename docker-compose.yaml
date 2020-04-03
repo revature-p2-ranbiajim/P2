@@ -34,8 +34,8 @@ services:
             dockerfile: griddb.dockerfile
         networks:
             - skynet
-        ports:
-            - 1433:1433 
+        # ports:
+        #     - 1433:1433 
             
     service_2:
         build:
@@ -61,8 +61,8 @@ services:
             - SA_PASSWORD=Password12345
         networks:
             - slynet
-        ports:
-            - 1400:1433
+        # ports:
+        #     - 1400:1433
 
 
 version: "3.7"
