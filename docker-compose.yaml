@@ -10,8 +10,6 @@ services:
         image: gazawayj/clientproj
         ports:
             - 9000:80 
-        # networks:
-        #     - skynet
 
     service_1:
         build:
