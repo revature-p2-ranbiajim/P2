@@ -23,9 +23,14 @@ services:
             - skynet
         environment:
             ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" 
+        depends_on: 
+            - sql_1
 
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
+        build:
+            context: Project2/Project2.GridService
+            dockerfile: ../../.docker/griddb.dockerfile
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password12345
@@ -44,10 +49,15 @@ services:
         networks:
             - skynet
         environment:
-            ConnectionStrings__main: "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"  
+            ConnectionStrings__main: "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345" 
+        depends_on: 
+            - sql_2
 
     sql_2:
         image: mcr.microsoft.com/mssql/server:2017-latest
+        build:
+            context: Project2/Project2.UserService
+            dockerfile: ../../.docker/userdb.dockerfile
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password12345
