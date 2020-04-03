@@ -34,8 +34,8 @@ services:
             dockerfile: griddb.dockerfile
         networks:
             - skynet
-        # ports:
-        #     - 1433:1433 
+        ports:
+            - 1433:1433 
             
     service_2:
         build:
