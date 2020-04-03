@@ -1,5 +1,6 @@
 networks:
     skynet:
+    slynet:
 
 services:
     mvc:
@@ -9,8 +10,8 @@ services:
         image: gazawayj/clientproj
         ports:
             - 9000:80 
-        networks:
-            - skynet
+        # networks:
+        #     - skynet
 
     service_1:
         build:
@@ -29,15 +30,12 @@ services:
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
         build:
-            context: Project2/Project2.GridService
-            dockerfile: ../../.docker/griddb.dockerfile
-        environment:
-            - ACCEPT_EULA=Y
-            - SA_PASSWORD=Password12345
+            context: .docker/
+            dockerfile: griddb.dockerfile
         networks:
             - skynet
-        ports:
-            - 1433:1433 
+        # ports:
+        #     - 1433:1433 
             
     service_2:
         build:
@@ -47,7 +45,7 @@ services:
         ports:
             - 7000:80 
         networks:
-            - skynet
+            - slynet
         environment:
             ConnectionStrings__main: "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345" 
         depends_on: 
@@ -56,16 +54,15 @@ services:
     sql_2:
         image: mcr.microsoft.com/mssql/server:2017-latest
         build:
-            context: Project2/Project2.UserService
-            dockerfile: ../../.docker/userdb.dockerfile
+            context: .docker/
+            dockerfile: userdb.dockerfile
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password12345
         networks:
-            - skynet
+            - slynet
         ports:
             - 1434:1433
-            #TODO: port 1433:1433
 
 
 version: "3.7"
