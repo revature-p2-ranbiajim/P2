@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 //sing Newtonsoft.Json;
 using Project2.MVC.Models;
-using Project2.UserService;
 
 namespace Project2.MVC.Controllers
 {
