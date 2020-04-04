@@ -141,8 +141,6 @@ document.addEventListener("click", function(e) {
     undoCache.push(Array.from(lastUsedBoxes));
     lastUsedBoxes.splice(0, lastUsedBoxes.length);
     undoCache.push(lastUsedColor);
-
-    console.log(grid1.colorArray);
 });
 
 function mouseDown(e) {
@@ -167,4 +165,15 @@ function changeColor() {
     if(isValidHex(userInput)) {
         userColor = "#" + userInput;
     }
+}
+
+function exportGrid() {
+    let curGrid = {
+        gridPallete: grid1.colorArray,
+        name: "temp",
+        rows: grid1.boxNumberY,
+        columns: grid1.boxNumberX
+    };
+    let json = JSON.stringify(curGrid)
+    console.log(json);
 }
