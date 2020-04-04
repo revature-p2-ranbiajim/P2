@@ -1,4 +1,14 @@
-﻿class grid {
+﻿//TODO:
+/**
+ * REFORMAT: change from class to functions, undo onclick hardcode
+ * EXPORT READY: make so can export to array or JSON format
+ * BUG FIXES:
+ *  extra space at end of canvas
+ *  formatting not correctly for click
+ *  Undo doesn't undo... it deletes
+ */
+
+class grid {
     constructor(width, height, ctx, boxNumberX, boxNumberY) {
         this.width = width;
         this.height = height;
@@ -27,10 +37,9 @@
     
     //with mouseState
     findRelativeBox(curX, curY){
-        let realScale = this.scale * 1.75; //fixed ratio issues... but why?
         let column, row = -1; 
         for(let x = 0; x < this.boxNumberX; x++){
-            if(curX > x*realScale && curX <= (x+1)*realScale){
+            if(curX > x*this.scale && curX <= (x+1)*this.scale){
                 column = x;
                 break;
             }
@@ -39,7 +48,7 @@
         //find row
         if(column != -1){ //if mouse isn't in canvas, no need to check
             for(let y = 0; y < this.boxNumberY; y++){
-                if(curY > y*realScale && curY <= (y+1)*realScale){
+                if(curY > y*this.scale && curY <= (y+1)*this.scale){
                     row = y;
                     break;
                 }
@@ -70,12 +79,10 @@
         let tempBoxLocation;
         for(let i = 0; i < lastUsedBoxesT.length; i++) {
             tempBoxLocation = lastUsedBoxesT[i];
-//            console.log(tempBoxLocation[0], tempBoxLocation[1]);
             if(lastUsedColor == "#ZZZZZZ") {
                 this.ctx.clearRect(tempBoxLocation[0]*this.scale, tempBoxLocation[1]*this.scale, this.scale, this.scale);
             } else {
                 this.ctx.fillStyle = "#BBBBBB";
-//                this.ctx.fillRect(tempBoxLocation[0]*this.scale, tempBoxLocation[1]*this.scale, this.scale, this.scale);
                 this.ctx.clearRect(tempBoxLocation[0]*this.scale, tempBoxLocation[1]*this.scale, this.scale, this.scale);
             }
         }
@@ -91,13 +98,21 @@
 */
 
 
-let c = document.getElementById("myCanvas"); //change from not getelementbyid?
+let c = document.getElementById("myCanvas"); //TODO: change out of getElementById
+
+//get offset
+let bodyRect = document.body.getBoundingClientRect();   //get position of body element
+let elemRect = c.getBoundingClientRect();               //get position of canvas element
+let offsetY  = elemRect.top - bodyRect.top;             //find offset of canvas to top
+let offsetX  = elemRect.left - bodyRect.left;           //find offset of canvas to left side
+
 let ctx = c.getContext("2d");
-let grid1 = new grid(500, 450, ctx, 12, 12); //TODO: should adjust dynamically to canvas
+let grid1 = new grid(c.width, c.height, ctx, 24, 12); //TODO: should adjust dynamically to canvas
 let userColor = "#000000";
 let undoCache = [];
 let lastUsedBoxes = [];
 let lastUsedColor = "#ZZZZZZ";
+
 grid1.drawBox();
 
 document.onmousemove = mouseMove;
@@ -111,16 +126,17 @@ function mouseMove(e) {
     mouseX = e.screenX;
     mouseY = e.screenY;
     if(mouseState == "down") {
-        grid1.drawBoxAtPosition(mouseX - 15, mouseY -115, userColor);
+        grid1.drawBoxAtPosition(mouseX - offsetX, mouseY - offsetY, userColor);
     }
     
     if(mouseState == "up") {
         //mouse is not being clicked
     }
 }
+
 document.addEventListener("click", function(e) {
-    grid1.drawBoxAtPosition(mouseX - 15, mouseY -115, userColor);
     mouseState = "up";
+    grid1.drawBoxAtPosition(mouseX - offsetX, mouseY - offsetY, userColor);
     //push the most recent unit batch
     undoCache.push(Array.from(lastUsedBoxes));
     lastUsedBoxes.splice(0, lastUsedBoxes.length);
