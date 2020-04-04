@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Project2.UserService.WeatherForecast>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <body>
@@ -19,3 +21,13 @@
     <p>Testing</p>
     <a href="http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast">weather</a>
 </div>
+
+@foreach (var item in Model)
+{
+  <table>
+    <tr> 
+      @Html.DisplayFor(modelitem => item.TemperatureC)
+    </tr>
+    <br>
+  </table>
+}
