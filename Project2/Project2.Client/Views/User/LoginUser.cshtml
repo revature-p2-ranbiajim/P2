@@ -1,0 +1,71 @@
+<head>
+  <style>
+    .form-group{
+      padding-top: 30px;
+    }
+    input{
+      color: white;
+      background-color: darkblue;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      border-color: darkblue;
+      border-style: solid;
+      border-width: 2px;
+    }
+    h1{
+      color: green;
+    }
+  </style>
+</head>
+
+@model Project2.Client.Models.UserViewModel
+
+@{
+    ViewBag.Title = "User Login";
+}
+
+<h1>Login to start the fun!</h1>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Userame, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-4">
+                <h3>@Html.EditorFor(model => model.Userame, new { htmlAttributes = new { @class = "form-control" } })</h3> 
+                @Html.ValidationMessageFor(model => model.Userame, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <table>
+          <tr>
+            <td>
+              <div class="form-group">
+                  <div class="col-md-offset-2 col-md-10">
+                      <input type="reset" value="CLEAR" />
+                  </div>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+              <div class="form-group">
+                  <div class="col-md-offset-2 col-md-10">
+                      <input type="submit" value="LOGIN" />
+                  </div>
+              </div>
+            </td>
+          </tr>
+        </table>   
+    </div>
+}
