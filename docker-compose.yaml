@@ -10,17 +10,17 @@ services:
           ports:
               - 9000:80 
           networks:
-              - skynet  
-    
+              - skynet
+          depends_on: 
+              - service_1
+              - service_2    
     service_1:
           build:
               context: Project2/Project2.GridService
               dockerfile: ../../.docker/grid.dockerfile
           image: gazawayj/gridproj
           ports:
-              - 8000:80 
-          expose:
-              - "9000"
+              - 8000 
           networks:
               - skynet
           environment:
@@ -42,9 +42,7 @@ services:
             dockerfile: ../../.docker/user.dockerfile
         image: gazawayj/userproj
         ports:
-            - 7000:80
-        expose:
-              - "9000"
+            - 7000
         networks:
             - skynet
         environment:
