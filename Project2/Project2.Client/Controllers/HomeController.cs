@@ -13,7 +13,7 @@ namespace Project2.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HttpClient _http = new HttpClient();
+        
         
         private readonly ILogger<HomeController> _logger;
 
@@ -24,10 +24,10 @@ namespace Project2.MVC.Controllers
 
         public IActionResult Index()
         {
-            var res = _http.GetAsync("http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast").GetAwaiter().GetResult();
+            
             //var weather = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             
-            return View(res.Content.ToString());
+            return View();
         }
 
         public IActionResult Privacy()

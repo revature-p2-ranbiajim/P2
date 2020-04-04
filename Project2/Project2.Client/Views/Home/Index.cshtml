@@ -1,6 +1,4 @@
-﻿@model string
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 <body>
@@ -22,7 +20,13 @@
     <a href="http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast">weather</a>
 </div>
 
-<p>@Model</p>
+@{
+  System.Net.Http.HttpClient _http = new System.Net.Http.HttpClient();
+  var res = _http.GetAsync("http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast").GetAwaiter().GetResult().ToString();
+
+<p>work pls</p>
+<p>@res</p>
+}
 @* @foreach (var item in Model)
 {
   <table>
