@@ -36,7 +36,7 @@ namespace Project2.Client.Controllers
       // }
       // return View(user);
 
-      return View("Index");
+      return View("LoginUser");
     }
   }
 }
