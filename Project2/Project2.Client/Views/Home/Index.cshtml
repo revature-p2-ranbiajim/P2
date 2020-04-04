@@ -5,8 +5,9 @@
     <canvas id="myCanvas" width="1000" height="950" style="border:0px solid #000;">
         Grid not supported.
     </canvas>
-    <button onclick="undoLast()">Undo</button>
-<!--        ^bad, because hardcoding-->
+    <input id="color-text" placeholder="Enter a color (000000)">
+    <button onclick="changeColor()">Change Color</button>
+    <button onclick="undoLast()">Undo</button> @* <--- change this out of hardcode! *@
     <script src=grid.js></script>
 </body>
 

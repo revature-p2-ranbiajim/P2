@@ -155,5 +155,19 @@ function undoLast() {
     grid1.undoDrawBox();
 }
 
+function changeColor() {
+    console.log();
+    function isHexColor (hex) {
+        return true;
+    }
+    userInput = document.getElementById("color-text").value;
+    console.log(isHexColor(userInput));
+    if(isHexColor(userInput)) {
+        console.log("Am changing color?");
+        console.log("The color: " + userInput);
+        userColor = "#" + userInput;
+    }
+}
+
 
 //add 
