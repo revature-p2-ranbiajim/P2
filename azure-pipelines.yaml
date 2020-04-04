@@ -109,6 +109,7 @@ stages:
     properties:
       containers:
       - name: deploy_mvc
+        tasks:
         - task: DockerCompose@0
           displayName: Run services
           inputs:
@@ -123,6 +124,7 @@ stages:
             buildImages: false
             detached: true
       - name: deploy_grid
+        tasks:
         - task: DockerCompose@0
           displayName: Run services
           inputs:
@@ -137,6 +139,7 @@ stages:
             buildImages: false
             detached: true
       - name: deploy_user
+        tasks:
         - task: DockerCompose@0
           displayName: Run services
           inputs:
