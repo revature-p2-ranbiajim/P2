@@ -9,7 +9,7 @@ if [ "$1" = '/opt/mssql/bin/sqlservr' ]; then
       # Wait
       sleep 20s
       #run the setup script
-      /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12345 -d master -i setupGrid.sql
+      /opt/mssql-tools/bin/sqlcmd -S "sql_1" -U sa -P Password12345 -d master -i setupGrid.sql
       # Note that the container has been initialized
       #touch /tmp/app-initialized
     }
