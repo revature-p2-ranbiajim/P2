@@ -7,8 +7,8 @@ services:
               context: Project2/Project2.Client
               dockerfile: ../../.docker/client.dockerfile
           image: gazawayj/clientproj
-          ports:
-              - 8000:80 
+          # ports:
+          #     - 8000:80 
           networks:
               - skynet
           depends_on: 
@@ -19,8 +19,8 @@ services:
               context: Project2/Project2.GridService
               dockerfile: ../../.docker/grid.dockerfile
           image: gazawayj/gridproj
-          ports:
-              - 7000:80 
+          # ports:
+          #     - 7000:80 
           networks:
               - skynet
           environment:
@@ -41,8 +41,8 @@ services:
             context: Project2/Project2.UserService
             dockerfile: ../../.docker/user.dockerfile
         image: gazawayj/userproj
-        ports:
-            - 6000:80
+        # ports:
+        #     - 6000:80
         networks:
             - skynet
         environment:
