@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+//sing Newtonsoft.Json;
 using Project2.MVC.Models;
 using Project2.UserService;
 
@@ -26,9 +26,9 @@ namespace Project2.MVC.Controllers
         public IActionResult Index()
         {
             var res = _http.GetAsync("http://api/weatherforecast").GetAwaiter().GetResult();
-            var weather = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+            //var weather = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             
-            return View(weather);
+            return View(res.Content.ToString());
         }
 
         public IActionResult Privacy()

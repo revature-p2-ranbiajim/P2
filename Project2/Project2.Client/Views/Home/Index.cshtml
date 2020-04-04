@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Project2.UserService.WeatherForecast>
+﻿@model string
 
 @{
     ViewData["Title"] = "Home Page";
@@ -22,7 +22,8 @@
     <a href="http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast">weather</a>
 </div>
 
-@foreach (var item in Model)
+<p>@Model</p>
+@* @foreach (var item in Model)
 {
   <table>
     <tr> 
@@ -30,4 +31,4 @@
     </tr>
     <br>
   </table>
-}
+} *@
