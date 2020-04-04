@@ -167,6 +167,7 @@ function changeColor() {
     }
 }
 
+//TODO: Add name functionality:
 function exportGrid() {
     let curGrid = {
         gridPallete: grid1.colorArray,
@@ -177,3 +178,11 @@ function exportGrid() {
     let json = JSON.stringify(curGrid)
     console.log(json);
 }
+//TODO: make prettier
+let link = document.createElement('a');
+link.innerHTML = 'download image';
+link.addEventListener('click', function(ev) {
+    link.href = c.toDataURL();
+    link.download = "pixel-art.png";
+}, false);
+document.body.appendChild(link);
