@@ -30,7 +30,7 @@
 
 @{
   System.Net.Http.HttpClient _http1 = new System.Net.Http.HttpClient();
-  var res1 = _http1.GetAsync("http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast").GetAwaiter().GetResult().ToString();
+  var res1 = _http1.GetAsync("http://service_2/api/weatherforecast").GetAwaiter().GetResult().ToString();
 
 <p>work pls</p>
 <p>@res1</p>
