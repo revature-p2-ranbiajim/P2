@@ -32,6 +32,9 @@ services:
         build:
             context: .docker/
             dockerfile: griddb.dockerfile
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Password12345
         networks:
             - skynet 
             
