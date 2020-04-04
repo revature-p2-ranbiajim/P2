@@ -27,6 +27,39 @@
 <p>work pls</p>
 <p>@res</p>
 }
+
+@{
+  System.Net.Http.HttpClient _http1 = new System.Net.Http.HttpClient();
+  var res1 = _http1.GetAsync("http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast").GetAwaiter().GetResult().ToString();
+
+<p>work pls</p>
+<p>@res1</p>
+}
+
+@{
+  System.Net.Http.HttpClient _http2 = new System.Net.Http.HttpClient();
+  var res2 = _http2.GetAsync("http://api/weatherforecast").GetAwaiter().GetResult().ToString();
+
+<p>work pls</p>
+<p>@res2</p>
+}
+
+@{
+  System.Net.Http.HttpClient _http3 = new System.Net.Http.HttpClient();
+  var res3 = _http3.GetAsync("/api/weatherforecast").GetAwaiter().GetResult().ToString();
+
+<p>work pls</p>
+<p>@res3</p>
+}
+
+@{
+  System.Net.Http.HttpClient _http4 = new System.Net.Http.HttpClient();
+  var res4 = _http3.GetAsync("api/weatherforecast").GetAwaiter().GetResult().ToString();
+
+<p>work pls</p>
+<p>@res4</p>
+}
+
 @* @foreach (var item in Model)
 {
   <table>
