@@ -30,7 +30,7 @@ class grid {
                 this.ctx.beginPath();
                 this.ctx.rect(j*this.scale, i*this.scale, this.scale, this.scale);
                 this.ctx.stroke();
-                this.colorArray.push("#ZZZZZZ"); //-1 = empty
+                this.colorArray[this.boxNumberX*i + j] = "#ZZZZZZ";
             }
         }
     }
@@ -64,7 +64,7 @@ class grid {
             this.curRowTemp = curPosition[1];
             this.ctx.fillStyle = color; //color
             this.ctx.fillRect(curPosition[0]*this.scale, curPosition[1]*this.scale, this.scale, this.scale);
-            this.colorArray[curPosition[0] + curPosition[1]] = color;
+            this.colorArray[curPosition[1]*this.boxNumberX + curPosition[0]] = color;
             this.ctx.stroke();
             //would put undo logic here:
             lastUsedBoxes.push([this.curColTemp, this.curRowTemp]);
@@ -107,7 +107,7 @@ let offsetY  = elemRect.top - bodyRect.top;             //find offset of canvas 
 let offsetX  = elemRect.left - bodyRect.left;           //find offset of canvas to left side
 
 let ctx = c.getContext("2d");
-let grid1 = new grid(c.width, c.height, ctx, 24, 12); //TODO: should adjust dynamically to canvas
+let grid1 = new grid(c.width, c.height, ctx, 5, 5); //TODO: should adjust dynamically to canvas
 let userColor = "#000000";
 let undoCache = [];
 let lastUsedBoxes = [];
@@ -167,5 +167,13 @@ function changeColor() {
     }
 }
 
-
-//add 
+function exportGrid() {
+    let curGrid = {
+        gridPallete: grid1.colorArray,
+        name: "temp",
+        rows: grid1.boxNumberY,
+        columns: grid1.boxNumberX
+    };
+    let json = JSON.stringify(curGrid)
+    console.log(json);
+}
