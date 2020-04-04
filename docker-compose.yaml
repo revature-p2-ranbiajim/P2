@@ -27,7 +27,6 @@ services:
               ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" 
           depends_on: 
               - sql_1
-
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
         build:
