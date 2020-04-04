@@ -2,16 +2,6 @@ networks:
     skynet:
 
 services:
-    mvc:
-        build:
-            context: Project2/Project2.Client
-            dockerfile: ../../.docker/client.dockerfile
-        image: gazawayj/clientproj
-        ports:
-            - 9000:80 
-        networks:
-            - skynet
-
     service_1:
         build:
             context: Project2/Project2.GridService
@@ -56,6 +46,16 @@ services:
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password12345
+        networks:
+            - skynet
+
+    mvc:
+        build:
+            context: Project2/Project2.Client
+            dockerfile: ../../.docker/client.dockerfile
+        image: gazawayj/clientproj
+        ports:
+            - 9000:80 
         networks:
             - skynet
 
