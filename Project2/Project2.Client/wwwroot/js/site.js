@@ -156,15 +156,13 @@ function undoLast() {
 }
 
 function changeColor() {
-    console.log();
-    function isHexColor (hex) {
-        return true;
+    function isValidHex (hex) {
+        //can add additional validation here
+        return /^[0-9a-fA-F]+$/.test(hex)
+            && (hex.length === 6 || hex.length === 8);
     }
     userInput = document.getElementById("color-text").value;
-    console.log(isHexColor(userInput));
-    if(isHexColor(userInput)) {
-        console.log("Am changing color?");
-        console.log("The color: " + userInput);
+    if(isValidHex(userInput)) {
         userColor = "#" + userInput;
     }
 }
