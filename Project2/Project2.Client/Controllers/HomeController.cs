@@ -25,7 +25,7 @@ namespace Project2.MVC.Controllers
 
         public IActionResult Index()
         {
-            var res = _http.GetAsync("http://api/weatherforecast").GetAwaiter().GetResult();
+            var res = _http.GetAsync("http://ranbiajim-project2-client.azurewebsites.net/api/weatherforecast").GetAwaiter().GetResult();
             //var weather = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             
             return View(res.Content.ToString());
