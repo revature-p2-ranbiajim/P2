@@ -2,19 +2,29 @@ networks:
     skynet:
 
 services:
+    mvc:
+          build:
+              context: Project2/Project2.Client
+              dockerfile: ../../.docker/client.dockerfile
+          image: gazawayj/clientproj
+          ports:
+              - 9000:80 
+          networks:
+              - skynet  
+    
     service_1:
-        build:
-            context: Project2/Project2.GridService
-            dockerfile: ../../.docker/grid.dockerfile
-        image: gazawayj/gridproj
-        ports:
-            - 8000:80 
-        networks:
-            - skynet
-        environment:
-            ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" 
-        depends_on: 
-            - sql_1
+          build:
+              context: Project2/Project2.GridService
+              dockerfile: ../../.docker/grid.dockerfile
+          image: gazawayj/gridproj
+          ports:
+              - 8000:80 
+          networks:
+              - skynet
+          environment:
+              ConnectionStrings__main: "server=sql_1;database=GridServiceDb;user id=sa;password=Password12345" 
+          depends_on: 
+              - sql_1
 
     sql_1:
         image: mcr.microsoft.com/mssql/server:2017-latest
@@ -46,16 +56,6 @@ services:
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password12345
-        networks:
-            - skynet
-
-    mvc:
-        build:
-            context: Project2/Project2.Client
-            dockerfile: ../../.docker/client.dockerfile
-        image: gazawayj/clientproj
-        ports:
-            - 9000:80 
         networks:
             - skynet
 
