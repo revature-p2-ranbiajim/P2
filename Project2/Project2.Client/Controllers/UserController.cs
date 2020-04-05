@@ -25,7 +25,7 @@ namespace Project2.Client.Controllers
       if (ModelState.IsValid)
       {
         HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-        var res = _http.PostAsync( "http://service_2/api/user", stringContent);
+        var res = _http.PostAsync("http://service_2/api/user", stringContent);
         return View("SuccessfulAccountCreation", user);
       }
       return View();
