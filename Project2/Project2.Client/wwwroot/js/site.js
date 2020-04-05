@@ -89,7 +89,7 @@ let ctxBackground = cBackground.getContext("2d")
 let grid1 = new grid(c.width, c.height, ctx, ctxBackground, chosenWidth, chosenHeight);     //TODO: Add in user choice for grid size
 let userColor = "#000000";                              //the color user selects, default to black
 
-let initialGridColor = new Array (25).fill("#ZZZZZZ");  //temp array to represent blank grid
+let initialGridColor = new Array (chosenWidth * chosenWidth).fill("#ZZZZZZ");  //temp array to represent blank grid
 let userColorCache = [];                                //Holds each grid color pallate. Used for undo purposes. TODO: Implement user choice
 userColorCache.push(initialGridColor);                  //Populate grid with initial blank grid
 
@@ -117,8 +117,7 @@ function mouseMove(e) {
 document.addEventListener("click", function(e) {
     if(mouseX > offsetX && mouseX < offsetX + (grid1.boxNumberX * grid1.scale)
     && mouseY > offsetY && mouseY < offsetY + (grid1.boxNumberY * grid1.scale)) {
-        let colorArrayClone = JSON.parse(JSON.stringify(grid1.colorArray));
-        userColorCache.push(colorArrayClone);
+        userColorCache.push(JSON.parse(JSON.stringify(grid1.colorArray)));
         grid1.drawBoxAtPosition(mouseX - offsetX, mouseY - offsetY, userColor);
     }
 
@@ -139,7 +138,7 @@ function undoLast() {
         let mostRecentColors = JSON.parse(JSON.stringify(userColorCache[userColorCache.length -1]));
         for (let i = 0; i < grid1.boxNumberY; i++) {
             for(let j = 0; j < grid1.boxNumberX; j++) {
-                curColor = mostRecentColors[grid1.boxNumberX*i + j];
+                curColor = JSON.parse(JSON.stringify(mostRecentColors[grid1.boxNumberX*i + j]));
                 ctx.beginPath();
                 if(curColor == "#ZZZZZZ") {
                     ctx.clearRect(j*grid1.scale, i*grid1.scale, grid1.scale, grid1.scale);
@@ -173,9 +172,9 @@ function exportGrid() {
         rows: grid1.boxNumberY,
         columns: grid1.boxNumberX
     };
-    let json = JSON.stringify(curGrid)
-    console.log(json);
+    let json = JSON.stringify(curGrid);
 }
+
 //TODO: make prettier
 let link = document.createElement('a');
 link.innerHTML = 'download image';
