@@ -17,7 +17,6 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <p>Testing</p>
-    <a href="http://service_2/api/weatherforecast">weather</a>
 </div>
 
 <p>
@@ -31,8 +30,13 @@
 
 @{
   System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
-  var res = await http.GetAsync("http://service_2/api/weatherforecast");
-  res.EnsureSuccessStatusCode();
-  var body = await res.Content.ReadAsStringAsync();
-<p>@body</p>
+  //       GET THE JSON
+  //var res = await http.GetStreamAsync("http://service_2/api/weatherforecast");
+  //var body = await System.Text.Json.JsonSerializer.DeserializeAsync<List<String>>(res);
+  //       GET AS STRING
+  var res = await http.GetStringAsync("http://service_2/api/weatherforecast");
+  var stringed = res.ToList();
+
+  
+<p>@res</p>
 }
