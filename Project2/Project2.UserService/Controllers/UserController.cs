@@ -23,20 +23,18 @@ namespace Project2.UserService.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<string> Get()
+    public int Get(string username, string password)
     {
-      List<string> res = new List<string>();
       using (_sqlCon)
       {
+        string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password";
+        SqlCommand command = new SqlCommand(sql, _sqlCon);
+        command.Parameters.AddWithValue("@userName", username);
+        command.Parameters.AddWithValue("@password", password);
         _sqlCon.Open();
-        DataTable dt = _sqlCon.GetSchema("Tables");
-        foreach (DataRow row in dt.Rows)
-        {
-          string table = row[2] as string;
-          res.Add(table);
-        }
+        var result = command.ExecuteScalar();
+        return (int)result;
       };
-      return res;
     }
 
     [HttpPost]
@@ -64,17 +62,18 @@ namespace Project2.UserService.Controllers
       return BadRequest();
     }
 
+    //Username check to see if a user is already in the database. Might not be necessary since I'm doing a check on the result when posting a user.
     private bool UserExists(string userName)
     {
       using (_sqlCon)
       {
-        string sql = "Select ClientId FROM dbo.CLIENT where Username=@userName";
+        string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName";
         SqlCommand command = new SqlCommand(sql, _sqlCon);
         command.Parameters.AddWithValue("@userName", userName);
+        _sqlCon.Open();
         var result = command.ExecuteScalar();
         return result != null? true : false;
       }
-      
     }
   }
 }
