@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using System.Data;
+using Project2.UserService.Models;
 
 namespace Project2.UserService.Controllers
 {
@@ -41,18 +42,18 @@ namespace Project2.UserService.Controllers
     //add new user to the database
     [HttpPost]
     //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
-      public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
+      public IActionResult Post(UserViewModel user){
       using (_sqlCon)
       {
-        if (!UserExists(userName))
+        if (!UserExists(user.Username))
         {
           string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
           SqlCommand command = new SqlCommand(sql, _sqlCon);
-          command.Parameters.AddWithValue("@userName", userName);
-          command.Parameters.AddWithValue("@firstName", firstName);
-          command.Parameters.AddWithValue("@lastName", lastName);
-          command.Parameters.AddWithValue("@emailAddress", emailAddress);
-          command.Parameters.AddWithValue("@password", password);
+          command.Parameters.AddWithValue("@userName", user.Username);
+          command.Parameters.AddWithValue("@firstName", user.FirstName);
+          command.Parameters.AddWithValue("@lastName", user.LastName);
+          command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
+          command.Parameters.AddWithValue("@password", user.Password);
           _sqlCon.Open();
           int result = command.ExecuteNonQuery();
           if (result >= 0)

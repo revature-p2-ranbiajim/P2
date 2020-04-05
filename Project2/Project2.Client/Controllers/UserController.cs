@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Project2.Client.Models;
 
 namespace Project2.Client.Controllers
 {
-  public class UserController: Controller
+  public class UserController : Controller
   {
     private readonly HttpClient _http = new HttpClient();
     private static string currentUserId;
@@ -24,8 +27,10 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-        var res = _http.PostAsync("http://service_2/api/user", stringContent);
+        var dataAsString = JsonConvert.SerializeObject(user);
+        var content = new StringContent(dataAsString);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        _http.PostAsync("http://service_2/api/user", content);
         return View("SuccessfulAccountCreation", user);
       }
       return View();
@@ -36,7 +41,7 @@ namespace Project2.Client.Controllers
     {
       return View();
     }
-    
+
     [HttpPost]
     public IActionResult LoginUser(UserViewModel user)
     {
@@ -46,7 +51,7 @@ namespace Project2.Client.Controllers
         var res = _http.GetAsync("http://service_2/api/checkuser").GetAwaiter().GetResult().ToString();
         if (res != null)
         {
-          
+
           currentUserId = user.UserId;
           currentUserFirstName = user.FirstName;
 
@@ -54,7 +59,7 @@ namespace Project2.Client.Controllers
           {
             FirstName = currentUserFirstName
           };
-          
+
           return View("UserMenu", u);
         }
       }
@@ -63,7 +68,7 @@ namespace Project2.Client.Controllers
 
     [HttpGet]
     public IActionResult UserMenu()
-    { 
+    {
       var u = new UserViewModel()
       {
         FirstName = currentUserFirstName
@@ -77,10 +82,10 @@ namespace Project2.Client.Controllers
     {
       return View("ChooseSizeGrid");
     }
-    
+
     [HttpPost]
     public IActionResult ChooseSizeGrid(GridViewModel grid)
-    { 
+    {
       if (ModelState.IsValid)
       {
         var g = new GridViewModel()
@@ -91,7 +96,7 @@ namespace Project2.Client.Controllers
         };
 
         //TODO: fix NewGrid, right now is a standard grid, not a customized one
-        
+
         return View("NewGrid", g);
       }
 
@@ -106,7 +111,7 @@ namespace Project2.Client.Controllers
         FirstName = currentUserFirstName,
         UserId = currentUserId
       };
-      
+
       return View("PreviousGrids", u);
     }
 
