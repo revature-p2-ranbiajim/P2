@@ -22,6 +22,7 @@ namespace Project2.UserService.Controllers
       _logger = logger;
     }
 
+    //return the ClientId of given username and password if they match
     [HttpGet]
     public int Get(string username, string password)
     {
@@ -37,8 +38,9 @@ namespace Project2.UserService.Controllers
       };
     }
 
+    //add new user to the database
     [HttpPost]
-    public IActionResult PostUser(string userName, string firstName, string lastName, string emailAddress, string password){
+    public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
       using (_sqlCon)
       {
         if (!UserExists(userName))
@@ -52,7 +54,6 @@ namespace Project2.UserService.Controllers
           command.Parameters.AddWithValue("@password", password);
           _sqlCon.Open();
           int result = command.ExecuteNonQuery();
-          _sqlCon.Close();
           if (result >= 0)
           {
             return Ok();
