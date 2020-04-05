@@ -4,18 +4,18 @@ namespace Project2.Client.Models
 {
   public class GridViewModel
   {
-    [Display(Name = "Grid Name")]
-    [Required(ErrorMessage ="please enter a name for your grid")]
+    [Display(Name = "Give your grid a name")]
+    [Required(ErrorMessage ="Please enter a name for your grid")]
     public string Name { get; set; }
     
-    [Display(Name = "Number of Columns")]
-    [Required(ErrorMessage ="please enter the number of columns")]
+    [Display(Name = "N° of columns")]
+    [Required(ErrorMessage ="Please enter the number of columns")]
     public string Height { get; set; }
 
-    [Display(Name = "Number of Rows")]
-    [Required(ErrorMessage ="please enter the number of rows")]
+    [Display(Name = "N° of rows")]
+    [Required(ErrorMessage ="Please enter the number of rows")]
     public string Width { get; set; }
-    public int GridId { get; set; }
+    public string GridId { get; set; }
 
   }
 }

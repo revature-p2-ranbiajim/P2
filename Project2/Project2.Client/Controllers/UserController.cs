@@ -7,13 +7,13 @@ namespace Project2.Client.Controllers
   public class UserController: Controller
   {
     private readonly HttpClient _http = new HttpClient();
-    private static int currentUserId;
+    private static string currentUserId;
     private static string currentUserFirstName;
 
     [HttpGet]
     public IActionResult CreateUser()
     {
-      return View("CreateUser");
+      return View();
     }
 
     [HttpPost]
@@ -36,7 +36,7 @@ namespace Project2.Client.Controllers
           return View("SuccessfulAccountCreation", u);
         }
       }
-      return View("CreateUser");
+      return View();
     }
 
     [HttpGet]
@@ -66,7 +66,7 @@ namespace Project2.Client.Controllers
           return View("UserMenu", u);
         }
       }
-      return View("LoginUser");
+      return View();
     }
 
     [HttpGet]
