@@ -30,9 +30,9 @@
 
 
 @{
-  System.Net.Http.HttpClient _http = new System.Net.Http.HttpClient();
-  var res = _http.GetAsync("http://service_2/api/weatherforecast").GetAwaiter().GetResult().ToString();
-
-//<p>work pls</p>
-<p>@res</p>
+  System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
+  var res = await http.GetAsync("http://service_2/api/weatherforecast");
+  res.EnsureSuccessStatusCode();
+  var body = await res.Content.ReadAsStringAsync();
+<p>@body</p>
 }
