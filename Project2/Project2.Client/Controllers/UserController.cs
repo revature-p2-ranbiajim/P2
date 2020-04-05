@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -23,15 +24,16 @@ namespace Project2.Client.Controllers
     }
 
     [HttpPost]
-    public IActionResult CreateUser(UserViewModel user)
+    public async Task<IActionResult> CreateUser(UserViewModel user)
     {
       if (ModelState.IsValid)
       {
         var dataAsString = JsonConvert.SerializeObject(user);
-        var content = new StringContent(dataAsString);
-        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        _http.PostAsync("http://service_2/api/user", content);
-        return View("SuccessfulAccountCreation", user);
+        var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
+        var res = await _http.PostAsync("http://service_2/api/user", content);
+        if (res.StatusCode == HttpStatusCode.OK){
+          return View("SuccessfulAccountCreation", user);
+        }
       }
       return View();
     }
