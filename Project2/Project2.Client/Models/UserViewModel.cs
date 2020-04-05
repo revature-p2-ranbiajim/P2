@@ -29,6 +29,6 @@ namespace Project2.Client.Models
     
     [Display(Name = "Email Address")]
     [Required(ErrorMessage ="Please enter your email address")]
-    public object EmailAddress { get; internal set; }
+    public string EmailAddress { get; internal set; }
   }
 }
