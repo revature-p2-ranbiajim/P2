@@ -34,5 +34,10 @@
     <canvas id="myCanvas" width="500" height="500" style="position: absolute; left: 200: top: 0; z-index: 1;">
         Grid not supported.
     </canvas>
-    <script src=grid.js></script>
+    <script type="text/javascript">
+      let chosenWidth = '@(Model.Width)';
+      let chosenHeight = '@(Model.Height)';
+      console.log(chosenWidth, chosenHeight);
+    </script>
+    <script src=site.js> </script>>
 </body>

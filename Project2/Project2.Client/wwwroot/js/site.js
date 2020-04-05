@@ -83,7 +83,7 @@ let offsetX  = c.offsetLeft;          //find offset of canvas to left side
 
 let ctx = c.getContext("2d");
 let ctxBackground = cBackground.getContext("2d")
-let grid1 = new grid(c.width, c.height, ctx, ctxBackground, 5, 5);     //TODO: Add in user choice for grid size
+let grid1 = new grid(c.width, c.height, ctx, ctxBackground, chosenWidth, chosenHeight);     //TODO: Add in user choice for grid size
 let userColor = "#000000";                              //the color user selects
 
 let initialGridColor = new Array (25).fill("#ZZZZZZ");  //temp array to represent blank grid
