@@ -15,6 +15,7 @@ namespace Project2.UserService.Controllers
   {
 
     private readonly ILogger<UserController> _logger;
+    private SqlConnection _sqlCon = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345");
 
     public UserController(ILogger<UserController> logger)
     {
@@ -25,10 +26,10 @@ namespace Project2.UserService.Controllers
     public IEnumerable<string> Get()
     {
       List<string> res = new List<string>();
-      using (SqlConnection con = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"))
+      using (_sqlCon)
       {
-        con.Open();
-        DataTable dt = con.GetSchema("Tables");
+        _sqlCon.Open();
+        DataTable dt = _sqlCon.GetSchema("Tables");
         foreach (DataRow row in dt.Rows)
         {
           string table = row[2] as string;
@@ -40,23 +41,40 @@ namespace Project2.UserService.Controllers
 
     [HttpPost]
     public IActionResult PostUser(string userName, string firstName, string lastName, string emailAddress, string password){
-      using (SqlConnection con = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"))
+      using (_sqlCon)
       {
-        string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
-        SqlCommand command = new SqlCommand(sql, con);
-        command.Parameters.AddWithValue("@userName", userName);
-        command.Parameters.AddWithValue("@firstName", firstName);
-        command.Parameters.AddWithValue("@lastName", lastName);
-        command.Parameters.AddWithValue("@emailAddress", emailAddress);
-        command.Parameters.AddWithValue("@password", password);
-        con.Open();
-        int result = command.ExecuteNonQuery();
-        if(result >= 0)
+        if (!UserExists(userName))
         {
-          return Ok();
-        }        
+          string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
+          SqlCommand command = new SqlCommand(sql, _sqlCon);
+          command.Parameters.AddWithValue("@userName", userName);
+          command.Parameters.AddWithValue("@firstName", firstName);
+          command.Parameters.AddWithValue("@lastName", lastName);
+          command.Parameters.AddWithValue("@emailAddress", emailAddress);
+          command.Parameters.AddWithValue("@password", password);
+          _sqlCon.Open();
+          int result = command.ExecuteNonQuery();
+          _sqlCon.Close();
+          if (result >= 0)
+          {
+            return Ok();
+          }
+        }
       };
       return BadRequest();
+    }
+
+    private bool UserExists(string userName)
+    {
+      using (_sqlCon)
+      {
+        string sql = "Select ClientId FROM dbo.CLIENT where Username=@userName";
+        SqlCommand command = new SqlCommand(sql, _sqlCon);
+        command.Parameters.AddWithValue("@userName", userName);
+        var result = command.ExecuteScalar();
+        return result != null? true : false;
+      }
+      
     }
   }
 }
