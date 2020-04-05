@@ -28,7 +28,7 @@
 <table style="margin-left:auto;margin-right:auto;">
   <tr>
     <td>
-      <form action="/user/newgrid" method="get">
+      <form action="/user/choosesizegrid" method="get">
         @Html.HiddenFor(model => model.UserId)
         <h3><input type="submit" value="New Grid"></h3>
       </form>
@@ -46,7 +46,7 @@
     <td></td>
     <td></td>
     <td>
-      <form action="/user/gridmenu" method="get">
+      <form action="/user/previousgrids" method="get">
         @Html.HiddenFor(model => model.UserId)
         <h3><input type="submit" value="Previous Grids"></h3>
       </form>

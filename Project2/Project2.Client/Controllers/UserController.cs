@@ -7,13 +7,8 @@ namespace Project2.Client.Controllers
   public class UserController: Controller
   {
     private readonly HttpClient _http = new HttpClient();
-    private static string currentUser;
-    
-    [HttpGet]
-    public IActionResult LoginUser()
-    {
-      return View();
-    }
+    private static int currentUserId;
+    private static string currentUserFirstName;
 
     [HttpGet]
     public IActionResult CreateUser()
@@ -35,13 +30,19 @@ namespace Project2.Client.Controllers
           var u = new UserViewModel()
           {
             //TODO: FIX HERE
-            FirstName = currentUser
+            FirstName = user.FirstName
           };
           
           return View("SuccessfulAccountCreation", u);
         }
       }
       return View("CreateUser");
+    }
+
+    [HttpGet]
+    public IActionResult LoginUser()
+    {
+      return View();
     }
     
     [HttpPost]
@@ -53,12 +54,13 @@ namespace Project2.Client.Controllers
         var res = _http.GetAsync("http://service_2/api/checkuser").GetAwaiter().GetResult().ToString();
         if (res != null)
         {
-          currentUser = res;
+          
+          currentUserId = user.UserId;
+          currentUserFirstName = user.FirstName;
 
           var u = new UserViewModel()
           {
-            //TODO: FIX HERE
-            FirstName = currentUser
+            FirstName = currentUserFirstName
           };
           
           return View("UserMenu", u);
@@ -70,33 +72,45 @@ namespace Project2.Client.Controllers
     [HttpGet]
     public IActionResult UserMenu()
     { 
-      return View("UserMenu");
-    }
-
-    [HttpGet]
-    public IActionResult NewGrid()
-    { 
       var u = new UserViewModel()
       {
-        //TODO: FIX HERE
-        FirstName = currentUser,
-        UserId = 0
+        FirstName = currentUserFirstName
       };
-      
-      return View("NewGrid", u);
+
+      return View("UserMenu", u);
     }
 
     [HttpGet]
-    public IActionResult GridMenu()
+    public IActionResult ChooseSizeGrid()
     {
-     var u = new UserViewModel()
+      return View("ChooseSizeGrid");
+    }
+    
+    [HttpPost]
+    public IActionResult ChooseSizeGrid(GridViewModel grid)
+    { 
+      var g = new GridViewModel()
       {
-        //TODO: FIX HERE
-        FirstName = currentUser,
-        UserId = 0
+        Name = grid.Name,
+        Height = grid.Height,
+        Width = grid.Width
+      };
+
+      //TODO: fix NewGrid, right now is a standard grid, not a customized one
+      
+      return View("NewGrid", g);
+    }
+
+    [HttpGet]
+    public IActionResult PreviousGrids()
+    {
+      var u = new UserViewModel()
+      {
+        FirstName = currentUserFirstName,
+        UserId = currentUserId
       };
       
-      return View("GridMenu", u);
+      return View("PreviousGrids", u);
     }
 
     [HttpGet]
@@ -104,7 +118,7 @@ namespace Project2.Client.Controllers
     {
       var u = new UserViewModel()
       {
-        FirstName = currentUser
+        FirstName = currentUserFirstName
       };
       return View("LogoutUser", u);
     }

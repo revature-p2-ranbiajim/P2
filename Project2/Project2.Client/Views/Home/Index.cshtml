@@ -1,22 +1,30 @@
-﻿@{
+﻿<head>
+  <style>
+    img{
+      text-align: center;
+      max-width: 40%;
+    }
+    h1{
+      color: darkgreen;
+      text-align: center;
+    }
+    button{
+      color: white;
+      background-color: darkblue;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      border-color: darkblue;
+      border-style: solid;
+      border-width: 2px;
+    }
+  </style>
+</head>
+
+@{
     ViewData["Title"] = "Home Page";
 }
-<body>
-    <canvas id="myCanvas" width="500" height="500" style="border:0px solid #000;">
-        Grid not supported.
-    </canvas>
-    <p></p>
-    <input id="color-text" placeholder="Enter a color (000000)">
-    <button onclick="changeColor()">Change Color</button>  @* <--- change this out of hardcode! *@
-    <button onclick="undoLast()">Undo</button> @* <--- change this out of hardcode! *@
-    <button onclick="exportGrid()">Save For Later</button>
-    <script src=grid.js></script>
-</body>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p>Testing</p>
+    <h1 class="display-4">Welcome to PixelPerfect!</h1>
 </div>
 
 <p>
@@ -27,18 +35,11 @@
   </h4>
 </p>
 
+<p>
+  <h4>
+    <form action="/user/createuser" method="get">
+      <button type="submit">Sign up!</button>
+    </form>
+  </h4>
+</p>
 
-@{
-  System.Net.Http.HttpClient http = new System.Net.Http.HttpClient();
-  //       GET THE JSON
-  //var res = await http.GetStreamAsync("http://service_2/api/weatherforecast");
-  //var body = await System.Text.Json.JsonSerializer.DeserializeAsync<List<String>>(res);
-  //       GET AS STRING
-  var res = await http.GetStringAsync("http://service_2/api/weatherforecast");
-<p>@res</p>
-
-@* var tables = await http.GetAsync("http://service_2/api/weatherforecast/tables");
-  
-<p>Available tables on service 2:</p>
-<p>@tables.Content.ToString()</p> *@
-}

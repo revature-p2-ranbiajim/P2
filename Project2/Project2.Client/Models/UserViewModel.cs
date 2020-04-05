@@ -14,7 +14,7 @@ namespace Project2.Client.Models
     public string Password { get; set; }
     
     [Display(Name = "Confirm Password")]
-    [Required(ErrorMessage ="please enter a valid password")]
+    [Compare("Password", ErrorMessage = "passwords must match")]
     [DataType(DataType.Password)]
     public string ConfirmPassword { get; set; }
     
@@ -23,9 +23,9 @@ namespace Project2.Client.Models
     public string FirstName { get; set; }
     
     [Display(Name = "Last Name")]
-    [Required(ErrorMessage ="please enter your first name")]
+    [Required(ErrorMessage ="please enter your last name")]
     public string LastName { get; set; }
-    public long UserId { get; set; }
+    public int UserId { get; set; }
 
   }
 }
