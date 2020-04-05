@@ -4,14 +4,16 @@
  * EXPORT READY: make so can export to array or JSON format
  * BUG FIXES:
  *  extra space at end of canvas
- *  formatting not correctly for click
- *  Undo doesn't undo... it deletes
+ *  some hardcoding
+ * EXTRAish:
+ *  Add name implementation
  */
 
 class grid {
-    constructor(width, height, ctx, boxNumberX, boxNumberY) {
+    constructor(width, height, ctx, ctxBackground, boxNumberX, boxNumberY) {
         this.width = width;
         this.height = height;
+        this.ctxBackground = ctxBackground;
         this.ctx = ctx;
         this.colorArray = new Array(boxNumberX + boxNumberY); //declare/initialize array for holding the current colors
         this.scale;
@@ -21,21 +23,21 @@ class grid {
         this.curRowTemp = -1;
     }
     
-    //make array
+    //create background grid
+    //also fills in array of colors for grid
     drawBox() {
         this.scale = Math.min(this.width/this.boxNumberX, this.height/this.boxNumberY);
-        let i, j;
-        for (i = 0; i < this.boxNumberY; i++) {
-            for(j = 0; j < this.boxNumberX; j++) {
-                this.ctx.beginPath();
-                this.ctx.rect(j*this.scale, i*this.scale, this.scale, this.scale);
-                this.ctx.stroke();
+        for (let i = 0; i < this.boxNumberY; i++) {
+            for(let j = 0; j < this.boxNumberX; j++) {
+                this.ctxBackground.beginPath();
+                this.ctxBackground.rect(j*this.scale, i*this.scale, this.scale, this.scale);
+                this.ctxBackground.stroke();
                 this.colorArray[this.boxNumberX*i + j] = "#ZZZZZZ";
             }
         }
     }
     
-    //with mouseState
+    //find the box that is relative to the cursor placement
     findRelativeBox(curX, curY){
         let column, row = -1; 
         for(let x = 0; x < this.boxNumberX; x++){
@@ -57,6 +59,8 @@ class grid {
         return [column, row];
     }
     
+    //draw the box that the cursor is over
+    //color is the user color passed to it
     drawBoxAtPosition(curX, curY, color) { //assume already down
         let curPosition = this.findRelativeBox(curX, curY); //find which box we are dealing with
         if(curPosition[0] != -1 && curPosition[1] != -1 && (this.curColTemp != curPosition[0] || this.curRowTemp != curPosition[1])) {
@@ -66,52 +70,25 @@ class grid {
             this.ctx.fillRect(curPosition[0]*this.scale, curPosition[1]*this.scale, this.scale, this.scale);
             this.colorArray[curPosition[1]*this.boxNumberX + curPosition[0]] = color;
             this.ctx.stroke();
-            //would put undo logic here:
-            lastUsedBoxes.push([this.curColTemp, this.curRowTemp]);
-            lastUsedColor = color;
         }
-    }
-
-    undoDrawBox() {
-        let lastUsedColorT = Array.from(undoCache.pop());
-        let lastUsedBoxesT = Array.from(undoCache.pop());
-        console.log(lastUsedBoxesT.length);
-        let tempBoxLocation;
-        for(let i = 0; i < lastUsedBoxesT.length; i++) {
-            tempBoxLocation = lastUsedBoxesT[i];
-            if(lastUsedColor == "#ZZZZZZ") {
-                this.ctx.clearRect(tempBoxLocation[0]*this.scale, tempBoxLocation[1]*this.scale, this.scale, this.scale);
-            } else {
-                this.ctx.fillStyle = "#BBBBBB";
-                this.ctx.clearRect(tempBoxLocation[0]*this.scale, tempBoxLocation[1]*this.scale, this.scale, this.scale);
-            }
-        }
-    }
+    }    
 }
 
-/*
-//what do I need for an undo?
-    - the boxes I just colored
-    - the boxes that were there before
-    - I am taking the boxes that I just colored, removing them, and replacing them with the old boxes that were there before
-    - old boxes had location and color
-*/
-
-
 let c = document.getElementById("myCanvas"); //TODO: change out of getElementById
+let cBackground = document.getElementById("backgroundGrid");
 
 //get offset
-let bodyRect = document.body.getBoundingClientRect();   //get position of body element
-let elemRect = c.getBoundingClientRect();               //get position of canvas element
-let offsetY  = elemRect.top - bodyRect.top;             //find offset of canvas to top
-let offsetX  = elemRect.left - bodyRect.left;           //find offset of canvas to left side
+let offsetY  = c.offsetTop + 100;     //find offset of canvas to top //TODO: FIX OFFSET TO NON HARDCODE
+let offsetX  = c.offsetLeft;          //find offset of canvas to left side
 
 let ctx = c.getContext("2d");
-let grid1 = new grid(c.width, c.height, ctx, 5, 5); //TODO: should adjust dynamically to canvas
-let userColor = "#000000";
-let undoCache = [];
-let lastUsedBoxes = [];
-let lastUsedColor = "#ZZZZZZ";
+let ctxBackground = cBackground.getContext("2d")
+let grid1 = new grid(c.width, c.height, ctx, ctxBackground, 5, 5);     //TODO: Add in user choice for grid size
+let userColor = "#000000";                              //the color user selects
+
+let initialGridColor = new Array (25).fill("#ZZZZZZ");  //temp array to represent blank grid
+let userColorCache = [];                                //Holds each grid color pallate. Used for undo purposes. TODO: Implement user choice
+userColorCache.push(initialGridColor);                  //Populate grid with initial blank grid
 
 grid1.drawBox();
 
@@ -135,12 +112,14 @@ function mouseMove(e) {
 }
 
 document.addEventListener("click", function(e) {
+    if(mouseX > offsetX && mouseX < offsetX + (grid1.boxNumberX * grid1.scale)
+    && mouseY > offsetY && mouseY < offsetY + (grid1.boxNumberY * grid1.scale)) {
+        let colorArrayClone = JSON.parse(JSON.stringify(grid1.colorArray));
+        userColorCache.push(colorArrayClone);
+        console.log("ADDED");
+    }
+
     mouseState = "up";
-    grid1.drawBoxAtPosition(mouseX - offsetX, mouseY - offsetY, userColor);
-    //push the most recent unit batch
-    undoCache.push(Array.from(lastUsedBoxes));
-    lastUsedBoxes.splice(0, lastUsedBoxes.length);
-    undoCache.push(lastUsedColor);
 });
 
 function mouseDown(e) {
@@ -152,7 +131,23 @@ function mouseUp(e) {
 }
 
 function undoLast() {
-    grid1.undoDrawBox();
+    if(userColorCache.length > 1) { //only undo so if there is something to undo
+        userColorCache.pop();
+        let mostRecentColors = JSON.parse(JSON.stringify(userColorCache[userColorCache.length -1]));
+        for (let i = 0; i < grid1.boxNumberY; i++) {
+            for(let j = 0; j < grid1.boxNumberX; j++) {
+                curColor = mostRecentColors[grid1.boxNumberX*i + j];
+                ctx.beginPath();
+                if(curColor == "#ZZZZZZ") {
+                    ctx.clearRect(j*grid1.scale, i*grid1.scale, grid1.scale, grid1.scale);
+                } else {
+                    ctx.fillStyle = curColor;
+                    ctx.fillRect(j*grid1.scale, i*grid1.scale, grid1.scale, grid1.scale);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
 }
 
 function changeColor() {

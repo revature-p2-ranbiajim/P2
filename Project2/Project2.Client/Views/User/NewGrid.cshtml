@@ -1,6 +1,7 @@
 <head>
   <style>
     button{
+      position: relative;
       color: white;
       background-color: darkblue;
       font-family: Georgia, 'Times New Roman', Times, serif;
@@ -18,16 +19,20 @@
       <button type="submit">Back to Menu</button>
     </form>
     <br>
+    <div class="gridButtons">
+      <input id="color-text" placeholder="Enter a color (000000)">
+      <button onclick="changeColor()">Change Color</button> @* <--- change this out of hardcode! *@
+      <button onclick="undoLast()">Undo</button>@* <--- change this out of hardcode! *@
+      <button onclick="exportGrid()">Save For Later</button> @* <--- change this out of hardcode! *@
+    </div>
     <br>
     <br>
     
-    <canvas id="myCanvas" width="500" height="500" style="border:0px solid #000;">
+    <canvas id="backgroundGrid" width="500" height="500" style="position: absolute; left: 200: top: 0; z-index: 0;">
         Grid not supported.
     </canvas>
-    <p></p>
-    <input id="color-text" placeholder="Enter a color (000000)">
-    <button onclick="changeColor()">Change Color</button>  @* <--- change this out of hardcode! *@
-    <button onclick="undoLast()">Undo</button> @* <--- change this out of hardcode! *@
-    <button onclick="exportGrid()">Save For Later</button>
+    <canvas id="myCanvas" width="500" height="500" style="position: absolute; left: 200: top: 0; z-index: 1;">
+        Grid not supported.
+    </canvas>
     <script src=grid.js></script>
 </body>
