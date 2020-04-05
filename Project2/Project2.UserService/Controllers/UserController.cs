@@ -37,12 +37,12 @@ namespace Project2.UserService.Controllers
       };
       return res;
     }
-    
+
     [HttpPost]
     public IActionResult PostUser(string userName, string firstName, string lastName, string emailAddress, string password){
       using (SqlConnection con = new SqlConnection("server=sql_2;database=UserServiceDb;user id=sa;password=Password12345"))
       {
-        string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, password, firstName, lastName, emailAddress";
+        string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
         SqlCommand command = new SqlCommand(sql, con);
         command.Parameters.AddWithValue("@userName", userName);
         command.Parameters.AddWithValue("@firstName", firstName);
