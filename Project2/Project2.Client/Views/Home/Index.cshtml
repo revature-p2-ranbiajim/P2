@@ -20,6 +20,15 @@
     <a href="http://service_2/api/weatherforecast">weather</a>
 </div>
 
+<p>
+  <h4>
+    <form action="/user/loginuser" method="get">
+      <button type="submit">Login!</button>
+    </form>
+  </h4>
+</p>
+
+
 @{
   System.Net.Http.HttpClient _http = new System.Net.Http.HttpClient();
   var res = _http.GetAsync("http://service_2/api/weatherforecast").GetAwaiter().GetResult().ToString();
