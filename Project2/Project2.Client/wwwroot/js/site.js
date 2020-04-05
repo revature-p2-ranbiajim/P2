@@ -77,9 +77,12 @@ class grid {
 let c = document.getElementById("myCanvas"); //TODO: change out of getElementById
 let cBackground = document.getElementById("backgroundGrid");
 
-//get offset
-let offsetY  = c.offsetTop + 100;     //find offset of canvas to top //TODO: FIX OFFSET TO NON HARDCODE
-let offsetX  = c.offsetLeft;          //find offset of canvas to left side
+//get current offset every second
+let offsetX, offsetY;
+window.setInterval(function() {
+    offsetY  = c.offsetTop + 100,     //find offset of canvas to top //TODO: FIX OFFSET TO NON HARDCODE
+    offsetX  = c.offsetLeft           //find offset of canvas to left side
+}, 1000);
 
 let ctx = c.getContext("2d");
 let ctxBackground = cBackground.getContext("2d")
