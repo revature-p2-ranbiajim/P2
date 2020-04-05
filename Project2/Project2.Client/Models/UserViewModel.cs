@@ -26,6 +26,8 @@ namespace Project2.Client.Models
     [Required(ErrorMessage ="Please enter your last name")]
     public string LastName { get; set; }
     public string UserId { get; set; }
-
+        [Display(Name = "Email Address")]
+    [Required(ErrorMessage ="Please enter your email address")]
+    public object EmailAddress { get; internal set; }
   }
 }

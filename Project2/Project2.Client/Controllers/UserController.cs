@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Project2.Client.Models;
 
 namespace Project2.Client.Controllers
@@ -21,20 +24,9 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        //TODO: WE NEED TO PASS THE USERNAME
-        var res = _http.GetAsync("http://service_2/api/checkusername").GetAwaiter().GetResult().ToString();
-        if (res == null)
-        {
-         //TODO: Push new user to db
-          
-          var u = new UserViewModel()
-          {
-            //TODO: FIX HERE
-            FirstName = user.FirstName
-          };
-          
-          return View("SuccessfulAccountCreation", u);
-        }
+        HttpContent stringContent = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+        var res = _http.PostAsync( "http://service_2/api/user", stringContent);
+        return View("SuccessfulAccountCreation", user);
       }
       return View();
     }
