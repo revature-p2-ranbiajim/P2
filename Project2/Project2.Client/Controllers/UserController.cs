@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project2.Client.Models;
 
@@ -5,6 +6,9 @@ namespace Project2.Client.Controllers
 {
   public class UserController: Controller
   {
+    private readonly HttpClient _http = new HttpClient();
+    private static string currentUser;
+    
     [HttpGet]
     public IActionResult LoginUser()
     {
@@ -14,29 +18,57 @@ namespace Project2.Client.Controllers
     [HttpPost]
     public IActionResult LoginUser(UserViewModel user)
     {
-      
-      // if (ModelState.IsValid)
-      // {
-      //   var acct = _ur.CheckIfAccountExists(user.Name, user.Password);
+      if (ModelState.IsValid)
+      {
+        //TODO: WE NEED TO PASS THE USERNAME AND PASSWORD
+        var res = _http.GetAsync("http://service_2/api/checkuser").GetAwaiter().GetResult().ToString();
+        if (res != null)
+        {
+          currentUser = res;
 
-      //   if (acct)
-      //   {
-      //     currentUser = _ur.GetUser(user.Name, user.Password);
-
-      //     var u = new UserViewModel()
-      //     {
-      //       Name = currentUser.Name,
-      //       Password = currentUser.Password,
-      //       UserId = currentUser.UserId,
-      //       Address = currentUser.Address
-      //     };
+          var u = new UserViewModel()
+          {
+            //TODO: FIX HERE
+            FirstName = currentUser
+          };
           
-      //     return View("UserOptions", u);
-      //   }
-      // }
-      // return View(user);
-
+          return View("UserMenu", u);
+        }
+      }
       return View("LoginUser");
     }
+
+    [HttpGet]
+    public IActionResult UserMenu()
+    { 
+      return View("UserMenu");
+    }
+
+    [HttpGet]
+    public IActionResult NewGrid()
+    { 
+      var u = new UserViewModel()
+      {
+        //TODO: FIX HERE
+        FirstName = currentUser,
+        UserId = 0
+      };
+      
+      return View("NewGrid", u);
+    }
+
+    [HttpGet]
+    public IActionResult GridMenu()
+    {
+     var u = new UserViewModel()
+      {
+        //TODO: FIX HERE
+        FirstName = currentUser,
+        UserId = 0
+      };
+      
+      return View("GridMenu", u);
+    }
+
   }
 }

@@ -6,7 +6,7 @@ namespace Project2.Client.Models
   {
     [Display(Name = "Username")]
     [Required(ErrorMessage ="please enter your username")]
-    public string Userame { get; set; }
+    public string Username { get; set; }
 
     [Display(Name = "Password")]
     [Required(ErrorMessage ="please enter a valid password")]
