@@ -10,11 +10,11 @@ namespace Project2.Client.Models
     
     [Display(Name = "Number of Columns")]
     [Required(ErrorMessage ="please enter the number of columns")]
-    public int Height { get; set; }
+    public string Height { get; set; }
 
     [Display(Name = "Number of Rows")]
     [Required(ErrorMessage ="please enter the number of rows")]
-    public int Width { get; set; }
+    public string Width { get; set; }
     public int GridId { get; set; }
 
   }

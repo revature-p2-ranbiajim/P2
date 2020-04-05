@@ -89,16 +89,21 @@ namespace Project2.Client.Controllers
     [HttpPost]
     public IActionResult ChooseSizeGrid(GridViewModel grid)
     { 
-      var g = new GridViewModel()
+      if (ModelState.IsValid)
       {
-        Name = grid.Name,
-        Height = grid.Height,
-        Width = grid.Width
-      };
+        var g = new GridViewModel()
+        {
+          Name = grid.Name,
+          Height = grid.Height,
+          Width = grid.Width
+        };
 
-      //TODO: fix NewGrid, right now is a standard grid, not a customized one
-      
-      return View("NewGrid", g);
+        //TODO: fix NewGrid, right now is a standard grid, not a customized one
+        
+        return View("NewGrid", g);
+      }
+
+      return View("ChooseSizeGrid");
     }
 
     [HttpGet]
