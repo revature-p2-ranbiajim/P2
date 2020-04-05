@@ -87,7 +87,7 @@ window.setInterval(function() {
 let ctx = c.getContext("2d");
 let ctxBackground = cBackground.getContext("2d")
 let grid1 = new grid(c.width, c.height, ctx, ctxBackground, chosenWidth, chosenHeight);     //TODO: Add in user choice for grid size
-let userColor = "#000000";                              //the color user selects
+let userColor = "#000000";                              //the color user selects, default to black
 
 let initialGridColor = new Array (25).fill("#ZZZZZZ");  //temp array to represent blank grid
 let userColorCache = [];                                //Holds each grid color pallate. Used for undo purposes. TODO: Implement user choice
@@ -119,7 +119,7 @@ document.addEventListener("click", function(e) {
     && mouseY > offsetY && mouseY < offsetY + (grid1.boxNumberY * grid1.scale)) {
         let colorArrayClone = JSON.parse(JSON.stringify(grid1.colorArray));
         userColorCache.push(colorArrayClone);
-        console.log("ADDED");
+        grid1.drawBoxAtPosition(mouseX - offsetX, mouseY - offsetY, userColor);
     }
 
     mouseState = "up";
@@ -169,7 +169,7 @@ function changeColor() {
 function exportGrid() {
     let curGrid = {
         gridPallete: grid1.colorArray,
-        name: "temp",
+        name: gridName,
         rows: grid1.boxNumberY,
         columns: grid1.boxNumberX
     };
