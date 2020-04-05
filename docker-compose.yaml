@@ -37,6 +37,8 @@ services:
             - SA_PASSWORD=Password12345
         networks:
             - skynet 
+        ports:
+            - 1434:1433
             
     service_2:
         build:
@@ -62,6 +64,8 @@ services:
             - SA_PASSWORD=Password12345
         networks:
             - skynet
+        ports:
+            - 1433:1433
 
 
 version: "3.7"

@@ -35,8 +35,10 @@
   //var body = await System.Text.Json.JsonSerializer.DeserializeAsync<List<String>>(res);
   //       GET AS STRING
   var res = await http.GetStringAsync("http://service_2/api/weatherforecast");
-  var stringed = res.ToList();
-
-  
 <p>@res</p>
+
+@* var tables = await http.GetAsync("http://service_2/api/weatherforecast/tables");
+  
+<p>Available tables on service 2:</p>
+<p>@tables.Content.ToString()</p> *@
 }
