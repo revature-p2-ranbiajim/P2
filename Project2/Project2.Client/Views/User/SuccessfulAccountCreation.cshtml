@@ -1,0 +1,29 @@
+<head>
+  <style>
+    h1{
+      color: green;
+      text-align: center;
+    }
+    button{
+      color: white;
+      background-color: darkblue;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      border-color: darkblue;
+      border-style: solid;
+      border-width: 2px;
+    }
+  </style>
+</head>
+@model Project2.Client.Models.UserViewModel
+
+@{
+    ViewBag.Message = "Successful Account Creation";
+}
+
+<h1>@Model.FirstName, your account was successfully created!</h1>
+
+<br>
+<form action="/user/loginuser" method="get">
+  <button type="submit">Login</button>
+</form>
+<br>

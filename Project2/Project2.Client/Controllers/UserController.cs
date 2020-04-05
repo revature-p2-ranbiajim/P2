@@ -15,6 +15,35 @@ namespace Project2.Client.Controllers
       return View();
     }
 
+    [HttpGet]
+    public IActionResult CreateUser()
+    {
+      return View("CreateUser");
+    }
+
+    [HttpPost]
+    public IActionResult CreateUser(UserViewModel user)
+    {
+      if (ModelState.IsValid)
+      {
+        //TODO: WE NEED TO PASS THE USERNAME
+        var res = _http.GetAsync("http://service_2/api/checkusername").GetAwaiter().GetResult().ToString();
+        if (res == null)
+        {
+         //TODO: Push new user to db
+          
+          var u = new UserViewModel()
+          {
+            //TODO: FIX HERE
+            FirstName = currentUser
+          };
+          
+          return View("SuccessfulAccountCreation", u);
+        }
+      }
+      return View("CreateUser");
+    }
+    
     [HttpPost]
     public IActionResult LoginUser(UserViewModel user)
     {
@@ -68,6 +97,16 @@ namespace Project2.Client.Controllers
       };
       
       return View("GridMenu", u);
+    }
+
+    [HttpGet]
+    public IActionResult LogoutUser()
+    {
+      var u = new UserViewModel()
+      {
+        FirstName = currentUser
+      };
+      return View("LogoutUser", u);
     }
 
   }
