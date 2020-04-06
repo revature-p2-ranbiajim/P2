@@ -82,7 +82,7 @@ let offsetX, offsetY;
 window.setInterval(function() {
     offsetY  = c.offsetTop + 100,     //find offset of canvas to top //TODO: FIX OFFSET TO NON HARDCODE
     offsetX  = c.offsetLeft           //find offset of canvas to left side
-}, 1000);
+}, 200);
 
 let ctx = c.getContext("2d");
 let ctxBackground = cBackground.getContext("2d")
