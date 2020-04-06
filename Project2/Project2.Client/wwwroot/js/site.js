@@ -176,10 +176,13 @@ function exportGrid() {
 }
 
 //TODO: make prettier
-let link = document.createElement('a');
-link.innerHTML = 'download image';
-link.addEventListener('click', function(ev) {
-    link.href = c.toDataURL();
-    link.download = "pixel-art.png";
-}, false);
-document.body.appendChild(link);
+function saveGridAsPNG() {
+    newWindow = window.open(c.toDataURL('image/png'));
+    var pic = c.toDataURL('png');
+
+    var a = document.createElement('a');
+    a.href = pic;
+    a.download = 'pixel-art.png';
+    a.click();
+    newWindow.close();
+}
