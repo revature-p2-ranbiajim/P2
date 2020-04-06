@@ -42,7 +42,7 @@ namespace Project2.UserService.Controllers
     //add new user to the database
     [HttpPost]
     //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
-      public IActionResult Post([FromBody] UserModel user){
+      public IActionResult Post(UserModel user){
       using (_sqlCon)
       {
         if (!UserExists(user.Username))
