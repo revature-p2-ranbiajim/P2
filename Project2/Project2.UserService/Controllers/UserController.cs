@@ -26,10 +26,7 @@ namespace Project2.UserService.Controllers
       
       using(SqlCommand command = new SqlCommand("Select Username FROM CLIENT WHERE Username=@userName AND Password=@password", _myCon))
       {
-        // string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password";
-        // SqlCommand command = new SqlCommand(sql, _sqlCon);
         _myCon.Open();
-        //command.CommandType = CommandType.StoredProcedure;
         command.Parameters.AddWithValue("@userName", username);
         command.Parameters.AddWithValue("@password", password);
         var result = command.ExecuteScalar() as string;
@@ -39,11 +36,8 @@ namespace Project2.UserService.Controllers
 
     //add new user to the database
     [HttpPost]
-    //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
       public IActionResult Post([FromBody]UserModel user){
-        // return Ok();
       using (_myCon)
-      //using(SqlCommand command = new SqlCommand("INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress", myCon))
       {
         if (!UserExists(user.Username, _myCon))
         {
