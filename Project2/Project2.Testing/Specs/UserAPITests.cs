@@ -1,20 +1,24 @@
 using Microsoft.Extensions.Logging;
 using Project2.UserService.Controllers;
+using Project2.UserService.Storage.Repositories;
 using Xunit;
 
 namespace Project2.Testing.Specs
 {
   public class UserAPITests
   {
-    // private readonly ILogger<UserController> logger = LoggerFactory.Create(o => o.SetMinimumLevel(LogLevel.Debug)).CreateLogger<UserController>();
+    
+    private readonly UserRepository _ur;
+    
+    private readonly ILogger<UserController> logger = LoggerFactory.Create(o => o.SetMinimumLevel(LogLevel.Debug)).CreateLogger<UserController>();
 
-    // [Theory]
-    // [InlineData("Bianca", "bianca")]
-    // public void Test_CreateUserReturnsView(string u, string p)
-    // {
-    //   var sut = new UserController(logger);
-    //   var actual = sut.Get(u, p);
-    //   Assert.IsType<int>(actual);
-    // }
+    [Theory]
+    [InlineData("Randall1", "password")]
+    public void Test_GetByUsernameAndPassword(string u, string p)
+    {
+      var sut = new UserController(_ur);
+      var actual = sut.Get(u, p);
+      Assert.IsType<string>(actual);
+    }
   }
 }
