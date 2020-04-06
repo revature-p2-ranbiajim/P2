@@ -38,7 +38,7 @@
     <tr>
       <td>
         <form action="/user/choosesizegrid" method="get">
-          @Html.HiddenFor(model => model)
+          @Html.HiddenFor(model => model.Username)
           <h3><input type="submit" value="New Grid"></h3>
         </form>
       </td>
@@ -56,7 +56,7 @@
       <td></td>
       <td>
         <form action="/user/previousgrids" method="get">
-          @Html.HiddenFor(model => model)
+          @Html.HiddenFor(model => model.Username)
           <h3><input type="submit" value="Previous Grids"></h3>
         </form>
       </td>
@@ -74,7 +74,7 @@
       <td></td>
       <td>
         <form action="/user/logoutuser" method="get">
-          @Html.HiddenFor(model => model)
+          @Html.HiddenFor(model => model.Username)
           <h3><input type="submit" value="Logout"></h3>
         </form>
       </td>
