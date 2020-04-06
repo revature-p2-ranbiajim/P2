@@ -49,15 +49,12 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        var dataAsString = JsonConvert.SerializeObject(user);
-        var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
-        var res = await _http.GetAsync("http://service_2/api/user");//, content);
-        //var res = _http.GetAsync("http://service_2/api/user").GetAwaiter().GetResult().ToString();
-        if (res != null)
+        var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
+        var response = await _http.GetStringAsync(Uri);
+        string firstName = JsonConvert.DeserializeObject<string>(response);
+        if (firstName != null)
         {
-
-          currentUserId = user.UserId;
-          currentUserFirstName = user.FirstName;
+          currentUserFirstName = firstName;
 
           var u = new UserViewModel()
           {
