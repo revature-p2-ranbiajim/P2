@@ -1,3 +1,9 @@
+@model Project2.Client.Models.UserViewModel
+
+@{
+    ViewBag.Message = "Successful Account Creation";
+}
+
 <head>
   <style>
     h1{
@@ -14,11 +20,7 @@
     }
   </style>
 </head>
-@model Project2.Client.Models.UserViewModel
 
-@{
-    ViewBag.Message = "Successful Account Creation";
-}
 
 <h1>@Model.FirstName, your account was successfully created!</h1>
 

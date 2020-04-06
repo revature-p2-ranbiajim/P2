@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
-using System.Data;
 using Project2.UserService.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace Project2.UserService.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
+  [EnableCors()]
   public class UserController : ControllerBase
   {
 
