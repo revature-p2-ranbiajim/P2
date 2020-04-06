@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Project2.GridService.Model;
-using System.Data.SqlClient;
+using Project2.GridService.Storage.Repositories;
+using System.Collections.Generic;
 
 namespace Project2.GridService.Controllers
 {
@@ -10,48 +11,41 @@ namespace Project2.GridService.Controllers
   public class GridController : ControllerBase
   {
 
-    //STORE GRID USERNAME, GRIDMODEL
+    private static GridRepository _gr;
     private readonly ILogger<GridController> _logger;
+
+    public GridController(GridRepository gr)
+    {
+      _gr = gr;
+    }
 
     public GridController(ILogger<GridController> logger)
     {
       _logger = logger;
     }
 
+    // Get all grids for specific user
     [HttpGet]
-    public string Get(string username)
-    {    
-      // using(SqlCommand command = new SqlCommand("Select Username FROM CLIENT WHERE Username=@userName AND Password=@password", _myCon))
-      // {
-      //   _myCon.Open();
-      //   command.Parameters.AddWithValue("@userName", username);
-      //   command.Parameters.AddWithValue("@password", password);
-      //   var result = command.ExecuteScalar() as string;
-      //   return result;
-      // };
-      return "";
+    public IEnumerable<GridModel> Get(string username)
+    {
+      return _gr.GetGridsForUser(username);
+    }
+
+    // Get specific grid by ID
+    [HttpGet]
+    public GridModel Get(long Id)
+    {
+      return _gr.GetGrid(Id);
     }
 
     //add new user to the database, USE FROM BODY IF GETTING A MODEL
     [HttpPost]
-      public IActionResult Post(string username, GridModel grid){
-      // using (_myCon)
-      // {
-      //     string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
-      //     SqlCommand command = new SqlCommand(sql, _myCon);
-          
-      //     command.Parameters.AddWithValue("@userName", user.Username);
-      //     command.Parameters.AddWithValue("@firstName", user.FirstName);
-      //     command.Parameters.AddWithValue("@lastName", user.LastName);
-      //     command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
-      //     command.Parameters.AddWithValue("@password", user.Password);
-      //     _myCon.Open();
-      //     var res = command.ExecuteNonQuery();
-      //     if (res >= 0)
-      //     {
-      //       return Ok();
-      //     }
-      // };
+    public IActionResult Post(GridModel grid)
+    {
+      if (_gr.AddGrid(grid))
+      {
+        return Ok();
+      }
       return BadRequest();
     }
   }

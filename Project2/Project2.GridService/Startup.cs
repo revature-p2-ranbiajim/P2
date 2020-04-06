@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Project2.GridService.Storage;
+using Project2.GridService.Storage.Repositories;
 
 namespace Project2.GridService
 {
@@ -21,8 +22,8 @@ namespace Project2.GridService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<GridDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connection")));
-            services.AddCors(o => o.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod()));
+            services.AddDbContext<GridDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("con")));
+            services.AddScoped<GridRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
