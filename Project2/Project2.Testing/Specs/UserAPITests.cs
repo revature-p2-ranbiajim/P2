@@ -30,7 +30,7 @@ namespace Project2.Testing.Specs
     {
       var sut = new UserRepository(_db);
       var actual = sut.FindUser(u);
-      Assert.True(actual != null);
+      Assert.IsType<UserModel>(actual);
     }
   }
 }
