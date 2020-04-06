@@ -24,7 +24,7 @@ namespace Project2.Client.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser(UserViewModel user)
+    public async Task<IActionResult> Post([FromBody] UserViewModel user)
     {
       if (ModelState.IsValid)
       {
