@@ -25,7 +25,7 @@ namespace Project2.Testing.Specs
     // }
 
     [Theory]
-    [InlineData("Randall1", "password")]
+    [InlineData("Randall1")]
     public void Test_FindUser(string u)
     {
       var sut = new UserRepository(_db);
