@@ -32,7 +32,7 @@ namespace Project2.Client.Controllers
         var dataAsString = JsonConvert.SerializeObject(user);
         var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
         var res = await _http.PostAsync("http://service_2/api/user", content);
-        if (res.StatusCode == HttpStatusCode.OK){
+        if (res.IsSuccessStatusCode){
           return View("SuccessfulAccountCreation", user);
         }
       }
@@ -52,18 +52,10 @@ namespace Project2.Client.Controllers
       {
         var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
         var response = await _http.GetStringAsync(Uri);
-        string firstName = JsonConvert.DeserializeObject<string>(response);
-        if (firstName != null)
+        if (JsonConvert.DeserializeObject<bool>(response))
         {
-          currentUserFirstName = firstName;
-
-          var u = new UserViewModel()
-          {
-            FirstName = currentUserFirstName
-          };
-
-          return View("UserMenu", u);
-        }
+          return View("UserMenu", user);
+        }        
       }
       return View();
     }

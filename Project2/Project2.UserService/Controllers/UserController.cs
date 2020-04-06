@@ -22,11 +22,11 @@ namespace Project2.UserService.Controllers
       _logger = logger;
     }
 
-    //return the ClientId of given username and password if they match
+    //return bool if client match
     [HttpGet]
-    public string Get(string username, string password)
+    public bool Get(string username, string password)
     {
-      return _ur.GetFirstName(username, password);
+      return _ur.Login(username, password);
     }
 
     //add new user to the database
