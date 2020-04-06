@@ -16,7 +16,8 @@ namespace Project2.UserService.Controllers
   {
 
     private readonly ILogger<UserController> _logger;
-    private static string _sqlCon = @"server=sql_2;database=UserServiceDb;user id=sa;password=Password12345";
+    private static string _conString = "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345";
+    private SqlConnection _myCon = new SqlConnection(_conString);
 
     public UserController(ILogger<UserController> logger)
     {
@@ -27,12 +28,12 @@ namespace Project2.UserService.Controllers
     [HttpGet]
     public int Get(string username, string password)
     {
-      using (SqlConnection myCon = new SqlConnection(_sqlCon))
-      using(SqlCommand command = new SqlCommand("Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password", myCon))
+      
+      using(SqlCommand command = new SqlCommand("Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password", _myCon))
       {
         // string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password";
         // SqlCommand command = new SqlCommand(sql, _sqlCon);
-        myCon.Open();
+        _myCon.Open();
         command.CommandType = CommandType.StoredProcedure;
         command.Parameters.AddWithValue("@userName", username);
         command.Parameters.AddWithValue("@password", password);
@@ -46,26 +47,25 @@ namespace Project2.UserService.Controllers
     //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
       public IActionResult Post(UserModel user){
         // return Ok();
-      using (SqlConnection myCon = new SqlConnection(_sqlCon))
-      using(SqlCommand command = new SqlCommand("INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress", myCon))
+      using (_myCon)
+      //using(SqlCommand command = new SqlCommand("INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress", myCon))
       {
-        myCon.Open();
-        if (!UserExists(user.Username, myCon))
+        if (!UserExists(user.Username, _myCon))
         {
-          // string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
-          // SqlCommand command = new SqlCommand(sql, _sqlCon);
+          string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
+          SqlCommand command = new SqlCommand(sql, _myCon);
           
           command.Parameters.AddWithValue("@userName", user.Username);
           command.Parameters.AddWithValue("@firstName", user.FirstName);
           command.Parameters.AddWithValue("@lastName", user.LastName);
           command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
           command.Parameters.AddWithValue("@password", user.Password);
-          // _sqlCon.Open();
-          // command.ExecuteReader();
-          // if (result >= 0)
-          // {
+          _myCon.Open();
+          var res = command.ExecuteNonQuery();
+          if (res >= 0)
+          {
             return Ok();
-          // }
+          }
         }
       };
       return BadRequest();
