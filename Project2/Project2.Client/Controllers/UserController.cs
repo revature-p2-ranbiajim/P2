@@ -14,8 +14,9 @@ namespace Project2.Client.Controllers
   public class UserController : Controller
   {
     private readonly HttpClient _http = new HttpClient();
-    private static string currentUserId;
+    private static string currentUsername;
     private static string currentUserFirstName;
+    private static string currentGridName;
 
     [HttpGet]
     public IActionResult CreateUser()
@@ -89,6 +90,8 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
+        currentGridName = grid.Name;
+        
         var g = new GridViewModel()
         {
           Name = grid.Name,
@@ -96,21 +99,34 @@ namespace Project2.Client.Controllers
           Width = grid.Width
         };
 
-        //TODO: fix NewGrid, right now is a standard grid, not a customized one
-
         return View("NewGrid", g);
       }
 
       return View("ChooseSizeGrid");
     }
 
+    [HttpPost]
+    public IActionResult SaveGrid(GridViewModel grid)
+    {
+      //TODO: CONNECT TO GRID API TO SAVE GRID AND NAME OF GRID, ALSO VALIDATE IF IT WAS SAVED
+
+      var u = new UserViewModel()
+      {
+        FirstName = currentUserFirstName
+      };
+      
+      return View("UserMenu", u);
+    }
+
     [HttpGet]
     public IActionResult PreviousGrids()
     {
+      //TODO: WITH CURRENT USERNAME, CALL API AND GET THE PREVIOUS GRIDS
+      
       var u = new UserViewModel()
       {
         FirstName = currentUserFirstName,
-        UserId = currentUserId
+        Username = currentUsername
       };
 
       return View("PreviousGrids", u);

@@ -16,6 +16,7 @@ namespace Project2.Client.Models
     [Required(ErrorMessage ="Please enter the number of rows")]
     public string Width { get; set; }
     public string GridId { get; set; }
+    public string SaveGrid { get; set; }
 
   }
 }
