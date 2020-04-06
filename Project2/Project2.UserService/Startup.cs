@@ -40,7 +40,7 @@ namespace Project2.UserService
 
             app.UseRouting();
 
-            app.UseCors();
+            // app.UseCors();
 
             app.UseAuthorization();
 

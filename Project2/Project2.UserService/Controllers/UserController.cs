@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Data.SqlClient;
 using Project2.UserService.Models;
 using Project2.UserService.Storage.Repositories;
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Project2.GridService.Model;
 using System.Data.SqlClient;
 
 namespace Project2.GridService.Controllers
@@ -9,9 +10,8 @@ namespace Project2.GridService.Controllers
   public class GridController : ControllerBase
   {
 
+    //STORE GRID USERNAME, GRIDMODEL
     private readonly ILogger<GridController> _logger;
-    private static string _conString = "server=sql_2;database=GridServiceDb;user id=sa;password=Password12345";
-    private SqlConnection _myCon = new SqlConnection(_conString);
 
     public GridController(ILogger<GridController> logger)
     {
@@ -34,7 +34,7 @@ namespace Project2.GridService.Controllers
 
     //add new user to the database, USE FROM BODY IF GETTING A MODEL
     [HttpPost]
-      public IActionResult Post(){
+      public IActionResult Post(string username, GridModel grid){
       // using (_myCon)
       // {
       //     string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
