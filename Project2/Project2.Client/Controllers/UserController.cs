@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +24,7 @@ namespace Project2.Client.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] UserViewModel user)
+    public async Task<IActionResult> CreateUser(UserViewModel user)
     {
       if (ModelState.IsValid)
       {
