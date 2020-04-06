@@ -10,7 +10,7 @@ namespace Project2.GridService.Controllers
   {
 
     private readonly ILogger<GridController> _logger;
-    private static string _conString = "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345";
+    private static string _conString = "server=sql_2;database=GridServiceDb;user id=sa;password=Password12345";
     private SqlConnection _myCon = new SqlConnection(_conString);
 
     public GridController(ILogger<GridController> logger)
@@ -18,67 +18,44 @@ namespace Project2.GridService.Controllers
       _logger = logger;
     }
 
-    //return the ClientId of given username and password if they match
     [HttpGet]
-    public string Get(string username, string password)
-    {
-
-      using (SqlCommand command = new SqlCommand("Select Username FROM CLIENT WHERE Username=@userName AND Password=@password", _myCon))
-      {
-        // string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password";
-        // SqlCommand command = new SqlCommand(sql, _sqlCon);
-        _myCon.Open();
-        //command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.AddWithValue("@userName", username);
-        command.Parameters.AddWithValue("@password", password);
-        var result = command.ExecuteScalar() as string;
-        return result;
-      };
+    public string Get(string username)
+    {    
+      // using(SqlCommand command = new SqlCommand("Select Username FROM CLIENT WHERE Username=@userName AND Password=@password", _myCon))
+      // {
+      //   _myCon.Open();
+      //   command.Parameters.AddWithValue("@userName", username);
+      //   command.Parameters.AddWithValue("@password", password);
+      //   var result = command.ExecuteScalar() as string;
+      //   return result;
+      // };
+      return "";
     }
 
     //add new user to the database
     [HttpPost]
-    //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
-    // public IActionResult Post([FromBody]UserModel user)
-    // {
-    //   // return Ok();
-    //   using (_myCon)
-    //   //using(SqlCommand command = new SqlCommand("INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress", myCon))
-    //   {
-    //     if (!UserExists(user.Username, _myCon))
-    //     {
-    //       string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
-    //       SqlCommand command = new SqlCommand(sql, _myCon);
-
-    //       command.Parameters.AddWithValue("@userName", user.Username);
-    //       command.Parameters.AddWithValue("@firstName", user.FirstName);
-    //       command.Parameters.AddWithValue("@lastName", user.LastName);
-    //       command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
-    //       command.Parameters.AddWithValue("@password", user.Password);
-    //       _myCon.Open();
-    //       var res = command.ExecuteNonQuery();
-    //       if (res >= 0)
-    //       {
-    //         return Ok();
-    //       }
-    //     }
-    //   };
-    //   return BadRequest();
-    // }
-
-    //Username check to see if a user is already in the database. Might not be necessary since I'm doing a check on the result when posting a user.
-    private bool UserExists(string userName, SqlConnection myCon)
-    {
-      // using (myCon)
-      // {
-      //   myCon.Open();
-      // string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName";
-      // SqlCommand command = new SqlCommand(sql, myCon);
-      // command.Parameters.AddWithValue("@userName", userName);
-      // var result = command.ExecuteScalar();
-      // return result != null? true : false;
-      return false;
-      // }
+      public IActionResult Post([FromBody]UserModel user){
+      using (_myCon)
+      {
+        if (!UserExists(user.Username, _myCon))
+        {
+          string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
+          SqlCommand command = new SqlCommand(sql, _myCon);
+          
+          command.Parameters.AddWithValue("@userName", user.Username);
+          command.Parameters.AddWithValue("@firstName", user.FirstName);
+          command.Parameters.AddWithValue("@lastName", user.LastName);
+          command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
+          command.Parameters.AddWithValue("@password", user.Password);
+          _myCon.Open();
+          var res = command.ExecuteNonQuery();
+          if (res >= 0)
+          {
+            return Ok();
+          }
+        }
+      };
+      return BadRequest();
     }
   }
 }
