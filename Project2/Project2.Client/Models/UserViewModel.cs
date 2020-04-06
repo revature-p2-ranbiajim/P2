@@ -13,11 +13,6 @@ namespace Project2.Client.Models
     [DataType(DataType.Password)]
     public string Password { get; set; }
     
-    [Display(Name = "Confirm password")]
-    [Compare("Password", ErrorMessage = "Passwords must match")]
-    [DataType(DataType.Password)]
-    public string ConfirmPassword { get; set; }
-    
     [Display(Name = "First name")]
     [Required(ErrorMessage ="Please enter your first name")]
     public string FirstName { get; set; }
