@@ -1,4 +1,5 @@
 <head>
+  <title>User Menu</title>
   <style>
     img{
       text-align: center;
@@ -33,50 +34,53 @@
 <br>
 
 <table style="margin-left:auto;margin-right:auto;">
-  <tr>
-    <td>
-      <form action="/user/choosesizegrid" method="get">
-        @Html.HiddenFor(model => model.UserId)
-        <h3><input type="submit" value="New Grid"></h3>
-      </form>
-    </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-      <form action="/user/previousgrids" method="get">
-        @Html.HiddenFor(model => model.UserId)
-        <h3><input type="submit" value="Previous Grids"></h3>
-      </form>
-    </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-      <form action="/user/logoutuser" method="get">
-        @Html.HiddenFor(model => model.UserId)
-        <h3><input type="submit" value="Logout"></h3>
-      </form>
-    </td>
-  </tr>
+  <th id="table">
+    <tr>
+      <td>
+        <form action="/user/choosesizegrid" method="get">
+          @Html.HiddenFor(model => model.UserId)
+          <h3><input type="submit" value="New Grid"></h3>
+        </form>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <form action="/user/previousgrids" method="get">
+          @Html.HiddenFor(model => model.UserId)
+          <h3><input type="submit" value="Previous Grids"></h3>
+        </form>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <form action="/user/logoutuser" method="get">
+          @Html.HiddenFor(model => model.UserId)
+          <h3><input type="submit" value="Logout"></h3>
+        </form>
+      </td>
+    </tr>
+  </th>
+  
 </table>
 <br>
 <br>
