@@ -26,15 +26,15 @@ namespace Project2.Client.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateUser(UserViewModel user)
     {
-      //if (ModelState.IsValid)
-      //{
+      if (ModelState.IsValid)
+      {
         var dataAsString = JsonConvert.SerializeObject(user);
         var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
         var res = await _http.PostAsync("http://service_2/api/user", content);
         if (res.StatusCode == HttpStatusCode.OK){
           return View("SuccessfulAccountCreation", user);
         }
-      //}
+      }
       return View();
     }
 
