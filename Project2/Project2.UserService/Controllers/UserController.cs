@@ -10,11 +10,8 @@ namespace Project2.UserService.Controllers
   [Route("api/[controller]")]
   public class UserController : ControllerBase
   {
-    private UserRepository _ur;
+    private static UserRepository _ur;
     private readonly ILogger<UserController> _logger;
-
-    private static string _conString = "server=sql_2;database=UserServiceDb;user id=sa;password=Password12345";
-    private SqlConnection _myCon = new SqlConnection(_conString);
 
     public UserController(UserRepository ur)
     {

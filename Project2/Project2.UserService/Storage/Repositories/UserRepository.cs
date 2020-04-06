@@ -7,7 +7,6 @@ namespace Project2.UserService.Storage.Repositories
   public class UserRepository
   {
     private static UserDbContext _db;
-    // private static readonly UserRepository _self = new UserRepository(_db);
 
     public UserRepository(UserDbContext dbContext)
     {
