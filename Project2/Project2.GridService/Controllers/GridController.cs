@@ -32,7 +32,7 @@ namespace Project2.GridService.Controllers
       return "";
     }
 
-    //add new user to the database
+    //add new user to the database, USE FROM BODY IF GETTING A MODEL
     [HttpPost]
       public IActionResult Post(){
       // using (_myCon)
