@@ -45,14 +45,14 @@ namespace Project2.UserService.Controllers
     //add new user to the database
     [HttpPost]
     //public IActionResult Post(string userName, string firstName, string lastName, string emailAddress, string password){
-      public IActionResult Post(UserModel user){
+      public IActionResult Post([FromBody]UserModel user){
         // return Ok();
       using (_myCon)
       //using(SqlCommand command = new SqlCommand("INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress", myCon))
       {
         if (!UserExists(user.Username, _myCon))
         {
-          string sql = "INSERT INTO dbo.CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress";
+          string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
           SqlCommand command = new SqlCommand(sql, _myCon);
           
           command.Parameters.AddWithValue("@userName", user.Username);
