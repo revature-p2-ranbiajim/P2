@@ -34,27 +34,24 @@ namespace Project2.GridService.Controllers
 
     //add new user to the database
     [HttpPost]
-      public IActionResult Post([FromBody]UserModel user){
-      using (_myCon)
-      {
-        if (!UserExists(user.Username, _myCon))
-        {
-          string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
-          SqlCommand command = new SqlCommand(sql, _myCon);
+      public IActionResult Post(){
+      // using (_myCon)
+      // {
+      //     string sql = "INSERT INTO CLIENT (Username, Password, FirstName, LastName, EmailAddress) VALUES (@userName, @password, @firstName, @lastName, @emailAddress)";
+      //     SqlCommand command = new SqlCommand(sql, _myCon);
           
-          command.Parameters.AddWithValue("@userName", user.Username);
-          command.Parameters.AddWithValue("@firstName", user.FirstName);
-          command.Parameters.AddWithValue("@lastName", user.LastName);
-          command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
-          command.Parameters.AddWithValue("@password", user.Password);
-          _myCon.Open();
-          var res = command.ExecuteNonQuery();
-          if (res >= 0)
-          {
-            return Ok();
-          }
-        }
-      };
+      //     command.Parameters.AddWithValue("@userName", user.Username);
+      //     command.Parameters.AddWithValue("@firstName", user.FirstName);
+      //     command.Parameters.AddWithValue("@lastName", user.LastName);
+      //     command.Parameters.AddWithValue("@emailAddress", user.EmailAddress);
+      //     command.Parameters.AddWithValue("@password", user.Password);
+      //     _myCon.Open();
+      //     var res = command.ExecuteNonQuery();
+      //     if (res >= 0)
+      //     {
+      //       return Ok();
+      //     }
+      // };
       return BadRequest();
     }
   }
