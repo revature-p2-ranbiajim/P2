@@ -24,13 +24,13 @@ namespace Project2.Testing.Specs
     //   Assert.IsType<string>(actual);
     // }
 
-    [Theory]
-    [InlineData("Randall1")]
-    public void Test_FindUser(string u)
-    {
-      var sut = new UserRepository(_db);
-      var actual = sut.FindUser(u);
-      Assert.IsType<UserModel>(actual);
-    }
+    // [Theory]
+    // [InlineData("Randall1")]
+    // public void Test_FindUser(string u)
+    // {
+    //   var sut = new UserRepository(_db);
+    //   var actual = sut.FindUser(u);
+    //   Assert.IsType<UserModel>(actual);
+    // }
   }
 }
