@@ -45,12 +45,14 @@ namespace Project2.Client.Controllers
     }
 
     [HttpPost]
-    public IActionResult LoginUser(UserViewModel user)
+    public async Task<IActionResult> LoginUser(UserViewModel user)
     {
       if (ModelState.IsValid)
       {
-        //TODO: WE NEED TO PASS THE USERNAME AND PASSWORD
-        var res = _http.GetAsync("http://service_2/api/checkuser").GetAwaiter().GetResult().ToString();
+        var dataAsString = JsonConvert.SerializeObject(user);
+        var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
+        var res = await _http.GetAsync("http://service_2/api/user", content);
+        //var res = _http.GetAsync("http://service_2/api/user").GetAwaiter().GetResult().ToString();
         if (res != null)
         {
 

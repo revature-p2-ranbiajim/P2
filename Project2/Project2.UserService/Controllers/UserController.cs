@@ -26,18 +26,18 @@ namespace Project2.UserService.Controllers
 
     //return the ClientId of given username and password if they match
     [HttpGet]
-    public int Get(string username, string password)
+    public int Get([FromBody]string username, string password)
     {
       
-      using(SqlCommand command = new SqlCommand("Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password", _myCon))
+      using(SqlCommand command = new SqlCommand("Select ClientId FROM CLIENT WHERE Username=@userName AND Password=@password", _myCon))
       {
         // string sql = "Select ClientId FROM dbo.CLIENT WHERE Username=@userName AND Password=@password";
         // SqlCommand command = new SqlCommand(sql, _sqlCon);
         _myCon.Open();
-        command.CommandType = CommandType.StoredProcedure;
+        //command.CommandType = CommandType.StoredProcedure;
         command.Parameters.AddWithValue("@userName", username);
         command.Parameters.AddWithValue("@password", password);
-        var result = command.ExecuteNonQuery();
+        var result = command.ExecuteScalar();
         return (int)result;
       };
     }
