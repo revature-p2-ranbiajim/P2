@@ -51,7 +51,7 @@ namespace Project2.Client.Controllers
       {
         var dataAsString = JsonConvert.SerializeObject(user);
         var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
-        var res = await _http.GetAsync("http://service_2/api/user", content);
+        var res = await _http.GetAsync("http://service_2/api/user")//, content);
         //var res = _http.GetAsync("http://service_2/api/user").GetAwaiter().GetResult().ToString();
         if (res != null)
         {
