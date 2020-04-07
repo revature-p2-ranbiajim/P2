@@ -1,0 +1,29 @@
+<label>
+    First name:
+    <input type="text" [formControl]="FirstName">
+
+    Last name:
+    <input type="text" [formControl]="LastName">
+
+    Username:
+    <input type="text" [formControl]="Username">
+
+    Password:
+    <input type="text" [formControl]="Password">
+
+    Email:
+    <input type="text" [formControl]="Email">
+</label>
+
+  
+  
+  
+  <p>
+    Value: {{ FirstName.value }}
+  </p>
+  
+  
+  <p>
+    <button (click)="createAccount()">Create Account</button>
+  </p>
+  
