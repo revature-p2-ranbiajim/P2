@@ -24,9 +24,6 @@ namespace Project2.MVC.Controllers
 
         public IActionResult Index()
         {
-            
-            //var weather = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast>>(res.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-            
             return View();
         }
 

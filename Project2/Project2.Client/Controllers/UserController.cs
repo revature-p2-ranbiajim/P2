@@ -15,9 +15,7 @@ namespace Project2.Client.Controllers
   public class UserController : Controller
   {
     private readonly HttpClient _http = new HttpClient();
-    private static string currentUsername;
-    private static string currentUserFirstName;
-    private static string currentGridName;
+    CurrentViewModel current = new CurrentViewModel();
 
     [HttpGet]
     public IActionResult CreateUser()
@@ -81,7 +79,7 @@ namespace Project2.Client.Controllers
     {
       var u = new UserViewModel()
       {
-        FirstName = currentUserFirstName
+        FirstName = current.currentUserFirstName
       };
 
       return View("UserMenu", u);
@@ -98,7 +96,7 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        currentGridName = grid.Name;
+        current.currentGridName = grid.Name;
         
         var g = new GridViewModel()
         {
@@ -120,7 +118,7 @@ namespace Project2.Client.Controllers
 
       var u = new UserViewModel()
       {
-        FirstName = currentUserFirstName
+        FirstName = current.currentUserFirstName
       };
       
       return View("UserMenu", u);
@@ -133,8 +131,8 @@ namespace Project2.Client.Controllers
       
       var u = new UserViewModel()
       {
-        FirstName = currentUserFirstName,
-        Username = currentUsername
+        FirstName = current.currentUserFirstName,
+        Username = current.currentUsername
       };
 
       return View("PreviousGrids", u);
@@ -145,7 +143,7 @@ namespace Project2.Client.Controllers
     {
       var u = new UserViewModel()
       {
-        FirstName = currentUserFirstName
+        FirstName = current.currentUserFirstName
       };
       return View("LogoutUser", u);
     }
