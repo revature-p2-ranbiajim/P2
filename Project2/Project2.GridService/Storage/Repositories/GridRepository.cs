@@ -24,9 +24,9 @@ namespace Project2.GridService.Storage.Repositories
       return _db.GridModels.Where( g => g.UserName == username).ToList();
     }
 
-    internal GridModel GetGrid(long id)
-    {
-      return _db.GridModels.SingleOrDefault( g => g.GridModelId == id);
-    }
+    // internal GridModel GetGrid(long id)
+    // {
+    //   return _db.GridModels.SingleOrDefault( g => g.GridModelId == id);
+    // }
   }
 }

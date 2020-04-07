@@ -95,22 +95,14 @@ namespace Project2.Client.Controllers
     public async Task<IActionResult> SaveGrid(GridViewModel grid)
     {
       //TODO: CONNECT TO GRID API TO SAVE GRID AND NAME OF GRID, ALSO VALIDATE IF IT WAS SAVED
-      if (ModelState.IsValid)
+      var dataAsString = JsonConvert.SerializeObject(grid);
+      var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
+      var res = await _http.PostAsync("http://service_1/api/grid", content);
+      var u = new UserViewModel()
       {
-        var dataAsString = JsonConvert.SerializeObject(grid);
-        var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
-        var res = await _http.PostAsync("http://service_1/api/grid", content);
-
-        if (res.IsSuccessStatusCode)
-        {
-          var u = new UserViewModel()
-          {
-            FirstName = _current.currentUserFirstName
-          };
-          return View("UserMenu", u);
-        }
-      }
-      return View();
+        FirstName = _current.currentUserFirstName
+      };
+      return View("UserMenu", u);
     }
 
     [HttpGet]

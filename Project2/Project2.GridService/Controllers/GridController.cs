@@ -26,17 +26,17 @@ namespace Project2.GridService.Controllers
 
     // Get all grids for specific user
     [HttpGet]
-    public IEnumerable<GridModel> GetGrids(string username)
+    public IEnumerable<GridModel> Get(string username)
     {
       return _gr.GetGridsForUser(username);
     }
 
-    // Get specific grid by ID
-    [HttpGet]
-    public GridModel Get(long Id)
-    {
-      return _gr.GetGrid(Id);
-    }
+    // // Get specific grid by ID
+    // [HttpGet]
+    // public GridModel Get(long Id)
+    // {
+    //   return _gr.GetGrid(Id);
+    // }
 
     //add new user to the database, USE FROM BODY IF GETTING A MODEL
     [HttpPost]

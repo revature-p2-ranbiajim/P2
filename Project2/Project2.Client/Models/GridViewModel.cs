@@ -17,6 +17,7 @@ namespace Project2.Client.Models
     public string Width { get; set; }
     public string GridId { get; set; }
     public string SaveGrid { get; set; }
+    public string UserName { get; set; }
 
   }
 }

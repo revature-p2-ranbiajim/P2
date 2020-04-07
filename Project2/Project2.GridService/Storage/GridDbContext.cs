@@ -8,13 +8,13 @@ namespace Project2.GridService.Storage
   public class GridDbContext : DbContext
   {
     public DbSet<GridModel> GridModels { get; set; }
-    public GridDbContext(DbContextOptions options) : base(options) {}
+    public GridDbContext(DbContextOptions options) : base(options) { }
 
-    protected override void OnModelCreating(ModelBuilder builder) 
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<GridModel>().HasKey(u => u.GridModelId);
+      builder.Entity<GridModel>().HasKey(u => u.GridId);
 
-        builder.Entity<GridModel>().Property(u => u.GridModelId).ValueGeneratedNever();
+      builder.Entity<GridModel>().Property(u => u.GridId).ValueGeneratedNever();
     }
-    }
+  }
 }
