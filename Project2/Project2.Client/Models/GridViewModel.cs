@@ -8,11 +8,11 @@ namespace Project2.Client.Models
     [Required(ErrorMessage ="Please enter a name for your grid")]
     public string Name { get; set; }
     
-    [Display(Name = "N° of columns")]
+    [Display(Name = "N° of rows")]
     [Required(ErrorMessage ="Please enter the number of columns")]
     public string Height { get; set; }
 
-    [Display(Name = "N° of rows")]
+    [Display(Name = "N° of columns")]
     [Required(ErrorMessage ="Please enter the number of rows")]
     public string Width { get; set; }
     public string GridId { get; set; }
