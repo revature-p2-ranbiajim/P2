@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Project2.UserService.Models;
@@ -24,7 +25,7 @@ namespace Project2.UserService.Controllers
 
     //return bool if client match
     [HttpGet]
-    public bool Get(string username, string password)
+    public List<string> Get(string username, string password)
     {
       return _ur.Login(username, password);
     }

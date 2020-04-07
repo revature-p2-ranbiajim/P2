@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Project2.UserService.Models;
 
@@ -24,10 +25,23 @@ namespace Project2.UserService.Storage.Repositories
       return _db.SaveChanges() == 1;
     }
 
-    internal bool Login(string username, string password)
+    internal List<string> Login(string username, string password)
     {
       var user = FindUser(username);
-      return (password == user.Password);
+      if (user != null)
+      {
+        if (password == user.Password)
+        {
+          List<string> state = new List<string>();
+          state[0] = user.Username;
+          state[1] = user.Password;
+          state[2] = user.FirstName;
+          state[3] = user.LastName;
+          state[4] = user.EmailAddress;
+          return state;
+        }
+      }
+      return new List<string>();
     }
   }
 }

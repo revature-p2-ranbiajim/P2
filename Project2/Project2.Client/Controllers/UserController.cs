@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -48,15 +49,21 @@ namespace Project2.Client.Controllers
     [HttpPost]
     public async Task<IActionResult> LoginUser(UserViewModel user)
     {
-      if (ModelState.IsValid)
-      {
-        var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
-        var response = await _http.GetStringAsync(Uri);
-        if (JsonConvert.DeserializeObject<bool>(response))
+      var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
+      var response = await _http.GetStringAsync(Uri);
+      var userinfo = JsonConvert.DeserializeObject<List<string>>(response);
+        //check if it's an empty list
+        if (userinfo.Any())
         {
-          return View("UserMenu", user);
-        }        
-      }
+          UserViewModel tempUser = new UserViewModel() {
+            Username = userinfo[0],
+            Password = userinfo[1],
+            FirstName = userinfo[2],
+            LastName = userinfo[3],
+            EmailAddress = userinfo[4]
+          };
+          return View("UserMenu", tempUser);
+        }
       return View();
     }
 
