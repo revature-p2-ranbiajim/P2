@@ -19,30 +19,29 @@ namespace Project2.UserService.Storage.Repositories
       return _db.UserModels.SingleOrDefault( u => u.Username == username);
     }
 
-    internal bool AddUser(UserModel user)
+    public bool AddUser(UserModel user)
     {
       _db.UserModels.Add(user);
       return _db.SaveChanges() == 1;
     }
 
-    internal IEnumerable<string> Login(string username, string password)
+    public List<string> Login(string username, string password)
     {
-      // var user = FindUser(username);
-      // if (user != null)
-      // {
-      //   if (password == user.Password)
-      //   {
-      //     List<string> state = new List<string>();
-      //     state[0] = user.Username;
-      //     state[1] = user.Password;
-      //     state[2] = user.FirstName;
-      //     state[3] = user.LastName;
-      //     state[4] = user.EmailAddress;
-      //     return state;
-      //   }
-      // }
-      // return new List<string>();
-      return new List<string>() { "username", "password", "firstname", "lastname", "email@email.com" };
+      var user = FindUser(username);
+      if (user != null)
+      {
+        if (password == user.Password)
+        {
+          List<string> state = new List<string>();
+          state.Add(user.Username);
+          state.Add(user.Password);
+          state.Add(user.FirstName);
+          state.Add(user.LastName);
+          state.Add(user.EmailAddress);
+          return state;
+        }
+      }
+      return new List<string>();
     }
   }
 }
