@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-name-editor',
@@ -7,20 +8,31 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./name-editor.component.css']
 })
 export class NameEditorComponent {
-  FirstName = new FormControl('');
-  LastName = new FormControl('');
-  Username = new FormControl('');
-  Password = new FormControl('');
-  Email = new FormControl('');
-  name = new FormControl('');
+  
+  FirstName=  new FormControl('');
+  LastName= new FormControl('');
+  Username= new FormControl('');
+  Password= new FormControl('');
+  Email= new FormControl('');
+  
+
+  json;
+  constructor(private http: HttpClient) {
+    // this.http.post("http://service_2/api/users", this.User).toPromise().then(data => { console.log(data)});
+  }
 
   createAccount() {
-    // this.FirstName.setValue('fn');
-    // this.LastName.setValue('ln');
-    // this.Username.setValue('un');
-    // this.Password.setValue('pw');
-    // this.Email.setValue('em');
-    // this.name.setValue('Nancy');
     //post
+    let User = {
+      FirstName: this.FirstName,
+      LastName: this.LastName,
+      Username: this.Username,
+      Password: this.Password,
+      Email: this.Email
+    }
+    this.http.post("http://service_2/api/users", User).toPromise().then((data:any) => { 
+      console.log(data);
+      this.json = data.json;
+    });
   }
 }
