@@ -52,10 +52,15 @@ namespace Project2.Client.Controllers
       var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
       var response = await _http.GetAsync(Uri);
       //if (response.IsSuccessStatusCode)
-      {
+      // {
         var content = await response.Content.ReadAsStringAsync();
-        var userinfo = JsonConvert.DeserializeObject<List<string>>(content);
-        if (userinfo.Any())
+        var userinfo1 = JsonConvert.DeserializeObject<List<string>>(content);
+        List<string> userinfo = new List<string>();
+        foreach(var item in userinfo1) {
+          userinfo.Add(item);
+        }
+
+        if (userinfo.Count >= 1)
         {
           UserViewModel tempUser = new UserViewModel() {
             Username = userinfo[0],
@@ -64,9 +69,10 @@ namespace Project2.Client.Controllers
             LastName = userinfo[3],
             EmailAddress = userinfo[4]
           };
-          return View("UserMenu", tempUser);
+          // return View("UserMenu", tempUser);
+        // }
+          return View("UserMenu", new UserViewModel());
         }
-      }
       return View();
     }
 

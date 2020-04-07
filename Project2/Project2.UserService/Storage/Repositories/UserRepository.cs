@@ -27,21 +27,22 @@ namespace Project2.UserService.Storage.Repositories
 
     internal IEnumerable<string> Login(string username, string password)
     {
-      var user = FindUser(username);
-      if (user != null)
-      {
-        if (password == user.Password)
-        {
-          List<string> state = new List<string>();
-          state[0] = user.Username;
-          state[1] = user.Password;
-          state[2] = user.FirstName;
-          state[3] = user.LastName;
-          state[4] = user.EmailAddress;
-          return state;
-        }
-      }
-      return new List<string>();
+      // var user = FindUser(username);
+      // if (user != null)
+      // {
+      //   if (password == user.Password)
+      //   {
+      //     List<string> state = new List<string>();
+      //     state[0] = user.Username;
+      //     state[1] = user.Password;
+      //     state[2] = user.FirstName;
+      //     state[3] = user.LastName;
+      //     state[4] = user.EmailAddress;
+      //     return state;
+      //   }
+      // }
+      // return new List<string>();
+      return new List<string>() { "username", "password", "firstname", "lastname", "email@email.com" };
     }
   }
 }
