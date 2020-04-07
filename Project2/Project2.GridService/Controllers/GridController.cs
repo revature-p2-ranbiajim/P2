@@ -14,15 +14,16 @@ namespace Project2.GridService.Controllers
     private static GridRepository _gr;
     private readonly ILogger<GridController> _logger;
 
-    public GridController(GridRepository gr)
+    public GridController(GridRepository gr, ILogger<GridController> logger)
     {
       _gr = gr;
-    }
-
-    public GridController(ILogger<GridController> logger)
-    {
       _logger = logger;
     }
+
+    // public GridController()
+    // {
+      
+    // }
 
     // Get all grids for specific user
     [HttpGet]

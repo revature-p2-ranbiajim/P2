@@ -50,8 +50,11 @@ namespace Project2.Client.Controllers
       var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
       var response = _http.GetAsync(Uri).GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
       UserViewModel givenUser = JsonConvert.DeserializeObject<UserViewModel>(response);
+      if (givenUser != null){
+        return View("UserMenu", givenUser);
+      }
       //current = givenUser;
-      return View("UserMenu", givenUser);
+      return View();
     }
 
     [HttpGet]
