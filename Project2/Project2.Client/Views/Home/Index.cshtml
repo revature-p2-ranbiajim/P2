@@ -1,30 +1,6 @@
 ﻿<head>
   <title>Home Page</title>
-  <style>
-    img{
-      text-align: center;
-      max-width: 70%;
-      padding-left: 30%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h1{
-      color: darkgreen;
-      text-align: center;
-    }
-    button{
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-    table{
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @{
@@ -32,18 +8,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4"><strong>Welcome to PixelPerfect!</strong></h1>
+    <h1 class="headings"><strong>Welcome to PixelPerfect!</strong></h1>
 </div>
 <br>
 <br>
 
-<table>
+<table class="tabla">
   <th id="table">
     <tr>
       <td>
         <h4>
           <form action="/user/loginuser" method="get">
-            <button type="submit">Login</button>
+            <button class="boton" type="submit">Login</button>
           </form>
         </h4>
       </td>
@@ -66,7 +42,7 @@
       <td>
         <h4>
           <form action="/user/createuser" method="get">
-            <button type="submit">Sign up</button>
+            <button class="boton" type="submit">Sign up</button>
           </form>
         </h4>
       </td>
@@ -74,5 +50,5 @@
   </th> 
 </table>
 
-<img src="https://is3-ssl.mzstatic.com/image/thumb/Purple118/v4/74/c1/9e/74c19e27-4281-ca33-e988-6639db37e0a9/source/512x512bb.jpg" alt="pixel art">
+<img class="img1" src="https://is3-ssl.mzstatic.com/image/thumb/Purple118/v4/74/c1/9e/74c19e27-4281-ca33-e988-6639db37e0a9/source/512x512bb.jpg" alt="pixel art">
 
