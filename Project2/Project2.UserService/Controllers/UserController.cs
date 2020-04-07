@@ -25,7 +25,7 @@ namespace Project2.UserService.Controllers
 
     //return bool if client match
     [HttpGet]
-    public List<string> Get(string username, string password)
+    public IEnumerable<string> Get(string username, string password)
     {
       return _ur.Login(username, password);
     }

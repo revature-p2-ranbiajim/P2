@@ -25,7 +25,7 @@ namespace Project2.UserService.Storage.Repositories
       return _db.SaveChanges() == 1;
     }
 
-    internal List<string> Login(string username, string password)
+    internal IEnumerable<string> Login(string username, string password)
     {
       var user = FindUser(username);
       if (user != null)

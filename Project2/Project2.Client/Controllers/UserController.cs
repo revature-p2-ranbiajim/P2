@@ -50,9 +50,11 @@ namespace Project2.Client.Controllers
     public async Task<IActionResult> LoginUser(UserViewModel user)
     {
       var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
-      var response = await _http.GetStringAsync(Uri);
-      var userinfo = JsonConvert.DeserializeObject<List<string>>(response);
-        //check if it's an empty list
+      var response = await _http.GetAsync(Uri);
+      //if (response.IsSuccessStatusCode)
+      {
+        var content = await response.Content.ReadAsStringAsync();
+        var userinfo = JsonConvert.DeserializeObject<List<string>>(content);
         if (userinfo.Any())
         {
           UserViewModel tempUser = new UserViewModel() {
@@ -64,6 +66,7 @@ namespace Project2.Client.Controllers
           };
           return View("UserMenu", tempUser);
         }
+      }
       return View();
     }
 
