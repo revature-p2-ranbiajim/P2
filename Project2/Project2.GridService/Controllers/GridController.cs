@@ -26,7 +26,7 @@ namespace Project2.GridService.Controllers
 
     // Get all grids for specific user
     [HttpGet]
-    public IEnumerable<GridModel> Get(string username)
+    public IEnumerable<GridModel> GetGrids(string username)
     {
       return _gr.GetGridsForUser(username);
     }

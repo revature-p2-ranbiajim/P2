@@ -50,6 +50,7 @@ namespace Project2.Client.Controllers
       var Uri = $"http://service_2/api/user?username={user.Username}&password={user.Password}";
       var response = _http.GetAsync(Uri).GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
       UserViewModel givenUser = JsonConvert.DeserializeObject<UserViewModel>(response);
+      //current = givenUser;
       return View("UserMenu", givenUser);
     }
 
@@ -91,16 +92,25 @@ namespace Project2.Client.Controllers
     }
 
     [HttpPost]
-    public IActionResult SaveGrid(GridViewModel grid)
+    public async Task<IActionResult> SaveGrid(GridViewModel grid)
     {
       //TODO: CONNECT TO GRID API TO SAVE GRID AND NAME OF GRID, ALSO VALIDATE IF IT WAS SAVED
-
-      var u = new UserViewModel()
+      if (ModelState.IsValid)
       {
-        FirstName = current.currentUserFirstName
-      };
-      
-      return View("UserMenu", u);
+        var dataAsString = JsonConvert.SerializeObject(grid);
+        var content = new StringContent(dataAsString, Encoding.UTF8, "application/json");
+        var res = await _http.PostAsync("http://service_1/api/grid", content);
+
+        if (res.IsSuccessStatusCode)
+        {
+          var u = new UserViewModel()
+          {
+            FirstName = current.currentUserFirstName
+          };
+          return View("UserMenu", u);
+        }
+      }
+      return View();
     }
 
     [HttpGet]
