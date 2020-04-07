@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-@* @model IEnumerable<Project2.Client.Models.GridViewModel> *@
+@model List<Project2.Client.Models.GridViewModel>
 
 
 @{
@@ -20,7 +20,7 @@
 <br>
 
 
-@* @foreach (var item in Model)
+@foreach (var item in Model)
 {
   <table>
     <tr>
@@ -46,39 +46,6 @@
     <tr>
       <td>
         @Html.DisplayFor(modelitem => item.Height)
-      </td>
-    </tr>
-  </table>    
-  <br>
-  <br>
-} *@
-
-@for (int i = 0; i < 2; i++)
-{
-  <table>
-    <tr>
-      <th>
-        <h3 class="blue">Name</h3>
-      </th>
-    </tr>
-    <tr>
-      <td>
-        <h4>N° of columns</h4>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <h4>1</h4>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <h4>N° of rows</h4>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <h4>2</h4>
       </td>
     </tr>
   </table>    

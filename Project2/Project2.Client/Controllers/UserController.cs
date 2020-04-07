@@ -120,14 +120,8 @@ namespace Project2.Client.Controllers
       var Uri = $"http://service_2/api/grid?username={_current.currentUsername}";
       var response = _http.GetAsync(Uri).GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
       List<GridViewModel> grids = JsonConvert.DeserializeObject<List<GridViewModel>>(response);
-      
-      var u = new UserViewModel()
-      {
-        FirstName = _current.currentUserFirstName,
-        Username = _current.currentUsername
-      };
 
-      return View("PreviousGrids", u);
+      return View("PreviousGrids", grids);
     }
 
     [HttpGet]
