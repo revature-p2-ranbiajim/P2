@@ -42,13 +42,13 @@ namespace Project2.Testing.Specs
       Assert.IsType<ViewResult>(actual);
     }
 
-    [Fact]
-    public void Test_PreviousGridsReturnsView()
-    {
-      var sut = new UserController();
-      var actual = sut.PreviousGrids() as IActionResult;
-      Assert.IsType<ViewResult>(actual);
-    }
+    // [Fact]
+    // public void Test_PreviousGridsReturnsView()
+    // {
+    //   var sut = new UserController();
+    //   var actual = sut.PreviousGrids() as IActionResult;
+    //   Assert.IsType<ViewResult>(actual);
+    // }
 
     [Fact]
     public void Test_LogoutUserReturnsView()
