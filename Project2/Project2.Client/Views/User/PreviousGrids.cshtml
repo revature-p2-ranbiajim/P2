@@ -3,16 +3,85 @@
   <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-@model Project2.Client.Models.UserViewModel
+@model IEnumerable<Project2.Client.Models.GridViewModel>
+
 
 @{
     ViewBag.Title = "Previous Grids";
 }
 
 <h1 class="headings">Here are your previous grids</h1>
-<h2 class="heading-center">Work in progress</h2>
 <br>
 <br>
 <form action="/user/usermenu" method="get">
   <button class="boton" type="submit">Back to Menu</button>
 </form>
+<br>
+<br>
+
+
+@* @foreach (var item in Model)
+{
+  <table>
+    <tr>
+      <th>
+        <h3 class="blue">@Html.DisplayFor(modelitem => item.Name)</h3>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <h4>N° of columns</h4>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        @Html.DisplayFor(modelitem => item.Width)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>N° of rows</h4>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        @Html.DisplayFor(modelitem => item.Height)
+      </td>
+    </tr>
+  </table>    
+  <br>
+  <br>
+} *@
+
+@for (int i = 0; i < 5; i++)
+{
+  <table>
+    <tr>
+      <th>
+        <h3 class="blue">Name</h3>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <h4>N° of columns</h4>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>1</h4>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>N° of rows</h4>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>2</h4>
+      </td>
+    </tr>
+  </table>    
+  <br>
+  <br>
+}
