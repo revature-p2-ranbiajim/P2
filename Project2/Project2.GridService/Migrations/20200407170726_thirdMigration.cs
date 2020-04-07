@@ -2,7 +2,7 @@
 
 namespace Project2.GridService.Migrations
 {
-    public partial class migration1 : Migration
+    public partial class thirdMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,12 +10,16 @@ namespace Project2.GridService.Migrations
                 name: "GridModels",
                 columns: table => new
                 {
-                    GridModelId = table.Column<long>(nullable: false),
-                    GridModelInfo = table.Column<string>(nullable: true)
+                    GridId = table.Column<long>(nullable: false),
+                    SaveGrid = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Height = table.Column<string>(nullable: true),
+                    Width = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GridModels", x => x.GridModelId);
+                    table.PrimaryKey("PK_GridModels", x => x.GridId);
                 });
         }
 

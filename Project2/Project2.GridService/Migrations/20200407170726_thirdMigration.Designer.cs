@@ -9,8 +9,8 @@ using Project2.GridService.Storage;
 namespace Project2.GridService.Migrations
 {
     [DbContext(typeof(GridDbContext))]
-    [Migration("20200407164603_secondMigration")]
-    partial class secondMigration
+    [Migration("20200407170726_thirdMigration")]
+    partial class thirdMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,16 +22,25 @@ namespace Project2.GridService.Migrations
 
             modelBuilder.Entity("Project2.GridService.Model.GridModel", b =>
                 {
-                    b.Property<long>("GridModelId")
+                    b.Property<long>("GridId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("GridModelInfo")
+                    b.Property<string>("Height")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SaveGrid")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GridModelId");
+                    b.Property<string>("Width")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GridId");
 
                     b.ToTable("GridModels");
                 });
