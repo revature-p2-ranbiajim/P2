@@ -15,7 +15,7 @@ namespace Project2.Client.Controllers
   public class UserController : Controller
   {
     private readonly HttpClient _http = new HttpClient();
-    CurrentViewModel current = new CurrentViewModel();
+    private CurrentViewModel _current = new CurrentViewModel();
 
     [HttpGet]
     public IActionResult CreateUser()
@@ -59,7 +59,7 @@ namespace Project2.Client.Controllers
     {
       var u = new UserViewModel()
       {
-        FirstName = current.currentUserFirstName
+        FirstName = _current.currentUserFirstName
       };
 
       return View("UserMenu", u);
@@ -76,7 +76,7 @@ namespace Project2.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        current.currentGridName = grid.Name;
+        _current.currentGridName = grid.Name;
         
         var g = new GridViewModel()
         {
@@ -105,7 +105,7 @@ namespace Project2.Client.Controllers
         {
           var u = new UserViewModel()
           {
-            FirstName = current.currentUserFirstName
+            FirstName = _current.currentUserFirstName
           };
           return View("UserMenu", u);
         }
@@ -117,11 +117,14 @@ namespace Project2.Client.Controllers
     public IActionResult PreviousGrids()
     {
       //TODO: WITH CURRENT USERNAME, CALL API AND GET THE PREVIOUS GRIDS
+      var Uri = $"http://service_2/api/grid?username={_current.currentUsername}";
+      var response = _http.GetAsync(Uri).GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
+      List<GridViewModel> grids = JsonConvert.DeserializeObject<List<GridViewModel>>(response);
       
       var u = new UserViewModel()
       {
-        FirstName = current.currentUserFirstName,
-        Username = current.currentUsername
+        FirstName = _current.currentUserFirstName,
+        Username = _current.currentUsername
       };
 
       return View("PreviousGrids", u);
@@ -132,7 +135,7 @@ namespace Project2.Client.Controllers
     {
       var u = new UserViewModel()
       {
-        FirstName = current.currentUserFirstName
+        FirstName = _current.currentUserFirstName
       };
       return View("LogoutUser", u);
     }
