@@ -1,25 +1,6 @@
 <head>
-  <title>previous Grids</title>
-  <style>
-    h1{
-      color: green;
-      text-align: center;
-    }
-    h2{
-      text-align: center;
-    }
-    img{
-      text-align: center;
-    }
-    button{
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-  </style>
+  <title>Previous Grids</title>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @model Project2.Client.Models.UserViewModel
@@ -28,10 +9,10 @@
     ViewBag.Title = "Previous Grids";
 }
 
-<h1>Here are your previous grids</h1>
-<h2>Work in progress</h2>
+<h1 class="headings">Here are your previous grids</h1>
+<h2 class="heading-center">Work in progress</h2>
 <br>
 <br>
 <form action="/user/usermenu" method="get">
-  <button type="submit">Back to Menu</button>
+  <button class="boton" type="submit">Back to Menu</button>
 </form>

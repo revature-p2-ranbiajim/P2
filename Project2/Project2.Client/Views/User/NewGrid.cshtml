@@ -1,16 +1,6 @@
 <head>
   <title>New Grid</title>
-  <style>
-    button{
-      position: relative;
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @model Project2.Client.Models.GridViewModel
@@ -25,7 +15,7 @@
         <tr>
           <td>
             <form action="/user/usermenu" method="get">
-              <button type="submit">Back to Menu Without Saving</button>
+              <button class="boton" type="submit">Back to Menu Without Saving</button>
             </form>
           </td>
           <td></td>
@@ -37,7 +27,7 @@
           <td></td>
           <td>
             <form action="/user/savegrid" method="post" onsubmit="@Model.SaveGrid = exportGrid()">
-              <button type="submit">Save for Later and Go Back to Menu</button>
+              <button class="boton" type="submit">Save for Later and Go Back to Menu</button>
             </form>
           </td>
         </tr>
@@ -49,9 +39,9 @@
     <br>
     <div class="gridButtons">
       <input id="color-text" placeholder="Enter a color (000000)">
-      <button onclick="changeColor()">Change Color</button> @* <--- change this out of hardcode! *@
-      <button onclick="undoLast()">Undo</button>@* <--- change this out of hardcode! *@
-      <button onclick="saveGridAsPNG()">Export to PNG</button>
+      <button class="boton1" onclick="changeColor()">Change Color</button> @* <--- change this out of hardcode! *@
+      <button class="boton1" onclick="undoLast()">Undo</button>@* <--- change this out of hardcode! *@
+      <button class="boton1" onclick="saveGridAsPNG()">Export to PNG</button>
       @* <button onclick="exportGrid()">Save For Later</button> @* <--- change this out of hardcode! *@
     </div>
     <br>

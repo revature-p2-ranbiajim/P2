@@ -1,25 +1,6 @@
 <head>
   <title>Successful Account Creation</title>
-  <style>
-    h1{
-      color: green;
-      text-align: center;
-    }
-    button{
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-    img{
-      text-align: center;
-      max-width: 70%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @model Project2.Client.Models.UserViewModel
@@ -30,14 +11,14 @@
 
 
 
-<h1>@Model.FirstName, your account was successfully created!</h1>
+<h1 class="headings">@Model.FirstName, your account was successfully created!</h1>
 
 <br>
 <form action="/user/loginuser" method="get">
-  <button type="submit">Login</button>
+  <button class="boton" type="submit">Login</button>
 </form>
 <br>
 <br>
 <br>
 
-<img src="https://thumbs.dreamstime.com/b/ice-cream-pixel-art-isolated-cone-white-background-115186204.jpg" alt="pixel art">
+<img class="img4" src="https://thumbs.dreamstime.com/b/ice-cream-pixel-art-isolated-cone-white-background-115186204.jpg" alt="pixel art">

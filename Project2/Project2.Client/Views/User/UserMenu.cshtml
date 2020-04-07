@@ -1,26 +1,6 @@
 <head>
   <title>User Menu</title>
-  <style>
-    img{
-      text-align: center;
-      max-width: 80%;
-      padding-left: 35%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h1{
-      color: green;
-      text-align: center;
-    }
-    input{
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @model Project2.Client.Models.UserViewModel
@@ -29,7 +9,7 @@
     ViewBag.Title = "User Menu";
 }
 
-<h1>What would you like to do?</h1>
+<h1 class="headings">What would you like to do?</h1>
 <br>
 <br>
 
@@ -39,7 +19,7 @@
       <td>
         <form action="/user/choosesizegrid" method="get">
           @Html.HiddenFor(model => model.Username)
-          <h3><input type="submit" value="New Grid"></h3>
+          <h3><input class="boton" type="submit" value="New Grid"></h3>
         </form>
       </td>
       <td></td>
@@ -57,7 +37,7 @@
       <td>
         <form action="/user/previousgrids" method="get">
           @Html.HiddenFor(model => model.Username)
-          <h3><input type="submit" value="Previous Grids"></h3>
+          <h3><input class="boton" type="submit" value="Previous Grids"></h3>
         </form>
       </td>
       <td></td>
@@ -75,7 +55,7 @@
       <td>
         <form action="/user/logoutuser" method="get">
           @Html.HiddenFor(model => model.Username)
-          <h3><input type="submit" value="Logout"></h3>
+          <h3><input class="boton" type="submit" value="Logout"></h3>
         </form>
       </td>
     </tr>
@@ -86,4 +66,4 @@
 <br>
 <br>
 
-<img src="https://i.pinimg.com/736x/01/a0/9d/01a09d9a7aee70e5139d4f1b971adba0--pixel-art-program-online-drawing-program.jpg" alt="pixel art">
+<img class="img5" src="https://i.pinimg.com/736x/01/a0/9d/01a09d9a7aee70e5139d4f1b971adba0--pixel-art-program-online-drawing-program.jpg" alt="pixel art">

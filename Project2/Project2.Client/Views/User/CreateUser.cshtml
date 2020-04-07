@@ -1,21 +1,6 @@
 <head>
   <title>Create User</title>
-  <style>
-    .form-group{
-      padding-top: 30px;
-    }
-    input{
-      color: white;
-      background-color: darkblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-color: darkblue;
-      border-style: solid;
-      border-width: 2px;
-    }
-    h1{
-      color: green;
-    }
-  </style>
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
 @model Project2.Client.Models.UserViewModel
@@ -24,7 +9,7 @@
     ViewBag.Title = "Create User";
 }
 
-<h1>Create an account!</h1>
+<h1 class="heading-to-the-left">Create an account!</h1>
 
 @using (Html.BeginForm()) 
 {
@@ -79,7 +64,7 @@
               <td>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="reset" value="CLEAR" />
+                        <input class="boton" type="reset" value="CLEAR" />
                     </div>
                 </div>
               </td>
@@ -88,7 +73,7 @@
               <td>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="CREATE" />
+                        <input class="boton" type="submit" value="CREATE" />
                     </div>
                 </div>
               </td>
