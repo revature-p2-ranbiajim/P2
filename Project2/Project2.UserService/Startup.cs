@@ -22,6 +22,12 @@ namespace Project2.UserService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+            }));
             services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("main")));
             services.AddScoped<UserRepository>();
             // services.AddScoped<GridRepository>();
@@ -31,6 +37,7 @@ namespace Project2.UserService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("MyPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -40,7 +47,6 @@ namespace Project2.UserService
 
             app.UseRouting();
 
-            // app.UseCors();
 
             app.UseAuthorization();
 
